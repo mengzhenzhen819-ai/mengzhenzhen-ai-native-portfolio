@@ -105,6 +105,19 @@ const projectImageAssets = {
   data: "834ea.png",
 };
 
+const lighthouseDetailImageModules = import.meta.glob("./ali-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const lighthouseDetailImages = [
+  1, 5, 6, 7, 3, 4, 2,
+  8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+  29, 30, 28, 27,
+  31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
+].map((number) => lighthouseDetailImageModules[`./ali-detail/ali-detail-${number}.jpg`]);
+
 function useReveal() {
   useEffect(() => {
     const nodes = document.querySelectorAll("[data-reveal]");
@@ -593,9 +606,24 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
-        <figure className="project-detail-visual">
-          <img src={asset(projectImageAssets[project.id])} alt={`${project.title}项目主视觉`} />
-        </figure>
+        {project.id === "lighthouse" ? (
+          <div className="project-detail-gallery" aria-label="灯塔专业版项目完整方案">
+            {lighthouseDetailImages.map((image, index) => (
+              <figure className="project-detail-visual" key={image}>
+                <img
+                  src={image}
+                  alt={`灯塔专业版项目方案第${index + 1}页`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <figure className="project-detail-visual">
+            <img src={asset(projectImageAssets[project.id])} alt={`${project.title}项目主视觉`} />
+          </figure>
+        )}
       </main>
     </div>
   );
