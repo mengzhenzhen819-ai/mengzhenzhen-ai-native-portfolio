@@ -129,9 +129,20 @@ const didiDetailImages = Array.from(
   (_, index) => didiDetailImageModules[`./didi-detail/didi-detail-${index + 1}.jpg`],
 );
 
+const governanceDetailImageModules = import.meta.glob("./governance-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const governanceDetailImages = [65, 66].map(
+  (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
+);
+
 const projectDetailGalleries = {
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
+  governance: governanceDetailImages,
 };
 
 function useReveal() {
