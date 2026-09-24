@@ -118,6 +118,22 @@ const lighthouseDetailImages = [
   31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
 ].map((number) => lighthouseDetailImageModules[`./ali-detail/ali-detail-${number}.jpg`]);
 
+const didiDetailImageModules = import.meta.glob("./didi-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const didiDetailImages = Array.from(
+  { length: 21 },
+  (_, index) => didiDetailImageModules[`./didi-detail/didi-detail-${index + 1}.jpg`],
+);
+
+const projectDetailGalleries = {
+  lighthouse: lighthouseDetailImages,
+  data: didiDetailImages,
+};
+
 function useReveal() {
   useEffect(() => {
     const nodes = document.querySelectorAll("[data-reveal]");
@@ -596,6 +612,8 @@ function ProjectDetailPage({ project }) {
     return () => { document.title = "Magic Meng — 产品体验设计师"; };
   }, [project]);
 
+  const detailImages = projectDetailGalleries[project.id];
+
   return (
     <div className="project-detail-page">
       <header className="project-detail-header">
@@ -606,13 +624,13 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
-        {project.id === "lighthouse" ? (
-          <div className="project-detail-gallery" aria-label="灯塔专业版项目完整方案">
-            {lighthouseDetailImages.map((image, index) => (
+        {detailImages ? (
+          <div className="project-detail-gallery" aria-label={`${project.title}项目完整方案`}>
+            {detailImages.map((image, index) => (
               <figure className="project-detail-visual" key={image}>
                 <img
                   src={image}
-                  alt={`灯塔专业版项目方案第${index + 1}页`}
+                  alt={`${project.title}项目方案第${index + 1}页`}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding="async"
                 />
