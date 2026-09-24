@@ -564,72 +564,14 @@ const aiProjects = [
 const detailProjects = [...allProjects, ...aiProjects.filter((project) => project.id)];
 
 function AISection() {
-  const viewportRef = useRef(null);
-  const dragRef = useRef({ pointerId: null, startX: 0, startScrollLeft: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-
-  const finishDrag = (event) => {
-    const viewport = viewportRef.current;
-    if (!viewport || dragRef.current.pointerId !== event.pointerId) return;
-
-    if (viewport.hasPointerCapture?.(event.pointerId)) {
-      viewport.releasePointerCapture(event.pointerId);
-    }
-    dragRef.current.pointerId = null;
-    setIsDragging(false);
-
-    const firstCard = viewport.querySelector(".ai-card");
-    const grid = viewport.querySelector(".ai-grid");
-    if (!firstCard || !grid) return;
-    const gap = Number.parseFloat(window.getComputedStyle(grid).columnGap) || 0;
-    const step = firstCard.getBoundingClientRect().width + gap;
-    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-    const stops = aiProjects.map((_, index) => Math.min(index * step, maxScroll));
-    const nearestStop = stops.reduce((closest, stop) => (
-      Math.abs(stop - viewport.scrollLeft) < Math.abs(closest - viewport.scrollLeft) ? stop : closest
-    ), stops[0]);
-    const dragDistance = event.clientX - dragRef.current.startX;
-    const nextLeft = dragDistance < -36
-      ? Math.min(dragRef.current.startScrollLeft + viewport.clientWidth, maxScroll)
-      : dragDistance > 36
-        ? Math.max(dragRef.current.startScrollLeft - viewport.clientWidth, 0)
-        : nearestStop;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    viewport.scrollTo({ left: nextLeft, behavior: reduceMotion ? "auto" : "smooth" });
-  };
-
-  const startDrag = (event) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-    dragRef.current = {
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startScrollLeft: viewport.scrollLeft,
-    };
-    viewport.setPointerCapture?.(event.pointerId);
-    setIsDragging(true);
-  };
-
-  const moveDrag = (event) => {
-    const viewport = viewportRef.current;
-    if (!viewport || dragRef.current.pointerId !== event.pointerId) return;
-    viewport.scrollLeft = dragRef.current.startScrollLeft - (event.clientX - dragRef.current.startX);
-  };
-
   return (
     <section className="ai-section" data-reveal>
       <SectionTitle>AI 探索</SectionTitle>
       <div
-        ref={viewportRef}
-        className={`ai-viewport${isDragging ? " is-dragging" : ""}`}
+        className="ai-viewport"
         role="region"
         aria-label="AI 探索项目，向左滑动查看更多"
         tabIndex="0"
-        onPointerDown={startDrag}
-        onPointerMove={moveDrag}
-        onPointerUp={finishDrag}
-        onPointerCancel={finishDrag}
       >
         <div className="ai-grid">
           {aiProjects.map((item) => {
@@ -646,6 +588,7 @@ function AISection() {
                 href={`/projects/${item.id}`}
                 aria-label={`查看${item.title}项目详情`}
                 key={item.title}
+                draggable="false"
               >
                 {content}
               </a>

@@ -564,14 +564,11 @@ img { user-select: none; }
   overflow-y: hidden;
   scrollbar-width: none;
   overscroll-behavior-inline: contain;
-  touch-action: pan-y;
-  cursor: grab;
+  touch-action: pan-x pan-y;
   outline: none;
 }
 .ai-viewport::-webkit-scrollbar { display: none; }
 .ai-viewport:focus-visible { outline: 2px solid #3b82f6; outline-offset: -2px; }
-.ai-viewport.is-dragging { cursor: grabbing; }
-.ai-viewport.is-dragging .ai-card { pointer-events: none; }
 .ai-grid {
   width: max-content;
   display: grid;
