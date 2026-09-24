@@ -183,13 +183,6 @@ const projectDetailGalleries = {
   "ai-restoration": aiRestorationDetailImages,
 };
 
-const projectDetailDocuments = {
-  matrix: {
-    title: "矩阵包AI平台能力及规划",
-    src: "/documents/matrix-ai-platform-plan.pdf",
-  },
-};
-
 function useReveal() {
   useEffect(() => {
     const nodes = document.querySelectorAll("[data-reveal]");
@@ -629,7 +622,6 @@ function ProjectDetailPage({ project }) {
   }, [project]);
 
   const detailImages = projectDetailGalleries[project.id];
-  const detailDocument = projectDetailDocuments[project.id];
 
   return (
     <div className="project-detail-page">
@@ -641,14 +633,6 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
-        {detailDocument && (
-          <section className="project-detail-document" aria-label={`${detailDocument.title}PDF文档入口`}>
-            <div className="project-detail-document-toolbar">
-              <span>{detailDocument.title} · 12页</span>
-              <a href={detailDocument.src} target="_blank" rel="noreferrer">新窗口打开 PDF ↗</a>
-            </div>
-          </section>
-        )}
         {detailImages ? (
           <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => (
@@ -662,11 +646,11 @@ function ProjectDetailPage({ project }) {
               </figure>
             ))}
           </div>
-        ) : !detailDocument ? (
+        ) : (
           <figure className="project-detail-visual">
             <img src={asset(projectImageAssets[project.id])} alt={`${project.title}项目主视觉`} />
           </figure>
-        ) : null}
+        )}
       </main>
     </div>
   );
