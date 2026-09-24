@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App.jsx?v=project-galleries-v3";
-import "./styles.css?v=project-galleries-v3";
+import { App } from "./App.jsx?v=project-galleries-v4";
+import "./styles.css?v=project-galleries-v4";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

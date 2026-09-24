@@ -147,11 +147,28 @@ const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.
 
 const aiInterfaceDetailImages = [aiInterfaceDetailImageModules["./ai-interface-detail/monkey-clear.jpg"]];
 
+const aiPortfolioDetailImageModules = import.meta.glob("./ai-portfolio-detail/*.png", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiRestorationDetailImageModules = import.meta.glob("./ai-restoration-detail/*.png", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiPortfolioDetailImages = [aiPortfolioDetailImageModules["./ai-portfolio-detail/ai-portfolio-detail.png"]];
+const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restoration-detail/ai-native-restoration-detail.png"]];
+
 const projectDetailGalleries = {
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
   governance: governanceDetailImages,
   "ai-interface": aiInterfaceDetailImages,
+  "ai-portfolio": aiPortfolioDetailImages,
+  "ai-restoration": aiRestorationDetailImages,
 };
 
 function useReveal() {
@@ -540,8 +557,8 @@ function ProjectsSection() {
 
 const aiProjects = [
   { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词，让 AI 快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
-  { title: "如何用 vibe coding 做作品集（本站）", description: "用 AI 工具辅助设计并构建本动态作品集网站，以产品思维替代传统 PDF，记录 AI 协作全流程的方法", image: "2a4fd.png" },
-  { title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png" },
+  { id: "ai-portfolio", title: "如何用 vibe coding 做作品集（本站）", description: "用 AI 工具辅助设计并构建本动态作品集网站，以产品思维替代传统 PDF，记录 AI 协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
+  { id: "ai-restoration", title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png", detailLayout: "longform" },
 ];
 
 const detailProjects = [...allProjects, ...aiProjects.filter((project) => project.id)];
