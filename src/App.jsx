@@ -139,7 +139,7 @@ const governanceDetailImages = [65, 66].map(
   (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
 );
 
-const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.jpg", {
+const matrixDetailImageModules = import.meta.glob("./matrix-detail-svg/*.svg", {
   eager: true,
   import: "default",
   query: "?url",
@@ -147,7 +147,7 @@ const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.jpg", {
 
 const matrixDetailImages = Array.from(
   { length: 12 },
-  (_, index) => matrixDetailImageModules[`./matrix-detail/matrix-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+  (_, index) => matrixDetailImageModules[`./matrix-detail-svg/matrix-detail-${index + 1}.svg`],
 );
 
 const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
