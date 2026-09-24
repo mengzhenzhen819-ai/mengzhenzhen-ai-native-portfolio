@@ -550,6 +550,8 @@ img { user-select: none; }
 .project-detail-gallery { display: grid; gap: 20px; margin-top: 32px; }
 .project-detail-gallery .project-detail-visual { margin-top: 0; aspect-ratio: 16 / 9; }
 .project-detail-gallery .project-detail-visual img { width: 100%; height: 100%; }
+.project-detail-gallery-longform .project-detail-visual { aspect-ratio: auto; background: #fff; }
+.project-detail-gallery-longform .project-detail-visual img { height: auto; }
 
 .ai-section { margin-top: 146.17px; margin-left: 0; }
 .ai-section > .section-title { margin-left: 0; }
@@ -578,12 +580,14 @@ img { user-select: none; }
   padding: 0 24px 34px 0;
 }
 .ai-card {
+  display: block;
   width: 656px;
   height: 524px;
   overflow: hidden;
   border: 1.125px solid #262626;
   border-radius: 20px;
   color: #a1a1a1;
+  text-decoration: none;
   background: rgba(10,10,10,.6);
   box-shadow: 0 1.125px 3.374px rgba(0,0,0,.4), 0 1.125px 2.249px -1.125px rgba(0,0,0,.4);
   outline: none;

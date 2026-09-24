@@ -139,10 +139,19 @@ const governanceDetailImages = [65, 66].map(
   (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
 );
 
+const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiInterfaceDetailImages = [aiInterfaceDetailImageModules["./ai-interface-detail/monkey-clear.jpg"]];
+
 const projectDetailGalleries = {
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
   governance: governanceDetailImages,
+  "ai-interface": aiInterfaceDetailImages,
 };
 
 function useReveal() {
@@ -530,10 +539,12 @@ function ProjectsSection() {
 }
 
 const aiProjects = [
-  { title: "用AI生成高质量APP界面", description: "用清晰的提示词，让 AI 快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png" },
+  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词，让 AI 快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
   { title: "如何用 vibe coding 做作品集（本站）", description: "用 AI 工具辅助设计并构建本动态作品集网站，以产品思维替代传统 PDF，记录 AI 协作全流程的方法", image: "2a4fd.png" },
   { title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png" },
 ];
+
+const detailProjects = [...allProjects, ...aiProjects.filter((project) => project.id)];
 
 function AISection() {
   const viewportRef = useRef(null);
@@ -604,12 +615,27 @@ function AISection() {
         onPointerCancel={finishDrag}
       >
         <div className="ai-grid">
-          {aiProjects.map((item) => (
-            <article className="ai-card" key={item.title} tabIndex="0">
-              <div className="ai-media"><img src={asset(item.image)} alt="" draggable="false" /></div>
-              <div className="ai-copy"><h3>{item.title}</h3><p>{item.description}</p></div>
-            </article>
-          ))}
+          {aiProjects.map((item) => {
+            const content = (
+              <>
+                <div className="ai-media"><img src={asset(item.image)} alt="" draggable="false" /></div>
+                <div className="ai-copy"><h3>{item.title}</h3><p>{item.description}</p></div>
+              </>
+            );
+            return item.id ? (
+              <a
+                className="ai-card"
+                id={`project-${item.id}`}
+                href={`/projects/${item.id}`}
+                aria-label={`查看${item.title}项目详情`}
+                key={item.title}
+              >
+                {content}
+              </a>
+            ) : (
+              <article className="ai-card" key={item.title} tabIndex="0">{content}</article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -636,7 +662,7 @@ function ProjectDetailPage({ project }) {
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
         {detailImages ? (
-          <div className="project-detail-gallery" aria-label={`${project.title}项目完整方案`}>
+          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => (
               <figure className="project-detail-visual" key={image}>
                 <img
@@ -662,7 +688,7 @@ export function App() {
   useReveal();
   useProjectReturnTarget();
   const detailMatch = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/);
-  const detailProject = detailMatch ? allProjects.find((project) => project.id === detailMatch[1]) : null;
+  const detailProject = detailMatch ? detailProjects.find((project) => project.id === detailMatch[1]) : null;
   if (detailProject) return <ProjectDetailPage project={detailProject} />;
 
   return (
