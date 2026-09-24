@@ -82,7 +82,7 @@ const skillTags = [
 ];
 
 const leftProjects = [
-  { id: "matrix", title: "矩阵包AI平台搭建", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071 },
+  { id: "matrix", title: "矩阵包AI平台搭建", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
   { id: "signin", title: "提签到连签率流程优化升级", description: "三端LT30留存1.48pp，人均连签天数提升1.2天", width: 494, height: 401, mediaHeight: 277.071 },
   { id: "lighthouse", title: "主导灯塔专业版项目改版", description: "挖掘业务策略机会点，推动全链路体验升级", width: 494, height: 491, mediaHeight: 362.672 },
   { id: "governance", title: "建立体验问题治理闭环", description: "体验问题由零散反馈升级为可治理的问题池,闭环效率显著提升，问题闭环率+13%,投诉/负反馈下降10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
@@ -139,6 +139,17 @@ const governanceDetailImages = [65, 66].map(
   (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
 );
 
+const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const matrixDetailImages = Array.from(
+  { length: 12 },
+  (_, index) => matrixDetailImageModules[`./matrix-detail/matrix-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
+
 const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
   eager: true,
   import: "default",
@@ -163,12 +174,20 @@ const aiPortfolioDetailImages = [aiPortfolioDetailImageModules["./ai-portfolio-d
 const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restoration-detail/ai-native-restoration-detail.png"]];
 
 const projectDetailGalleries = {
+  matrix: matrixDetailImages,
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
   governance: governanceDetailImages,
   "ai-interface": aiInterfaceDetailImages,
   "ai-portfolio": aiPortfolioDetailImages,
   "ai-restoration": aiRestorationDetailImages,
+};
+
+const projectDetailDocuments = {
+  matrix: {
+    title: "矩阵包AI平台能力及规划",
+    src: "/documents/matrix-ai-platform-plan.pdf",
+  },
 };
 
 function useReveal() {
@@ -610,6 +629,7 @@ function ProjectDetailPage({ project }) {
   }, [project]);
 
   const detailImages = projectDetailGalleries[project.id];
+  const detailDocument = projectDetailDocuments[project.id];
 
   return (
     <div className="project-detail-page">
@@ -621,6 +641,14 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
+        {detailDocument && (
+          <section className="project-detail-document" aria-label={`${detailDocument.title}PDF文档入口`}>
+            <div className="project-detail-document-toolbar">
+              <span>{detailDocument.title} · 12页</span>
+              <a href={detailDocument.src} target="_blank" rel="noreferrer">新窗口打开 PDF ↗</a>
+            </div>
+          </section>
+        )}
         {detailImages ? (
           <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => (
@@ -634,11 +662,11 @@ function ProjectDetailPage({ project }) {
               </figure>
             ))}
           </div>
-        ) : (
+        ) : !detailDocument ? (
           <figure className="project-detail-visual">
             <img src={asset(projectImageAssets[project.id])} alt={`${project.title}项目主视觉`} />
           </figure>
-        )}
+        ) : null}
       </main>
     </div>
   );
