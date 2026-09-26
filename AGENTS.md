@@ -20,3 +20,4 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - The B-end data-platform detail page uses the 21 images from the legacy `/project-didi` page in order. Keep its optimized 2400px local copies under `src/didi-detail/` and import them through the shared project gallery path.
 - The experience-governance detail page uses the two images from the legacy `/project-dengta` page in order (`byte-page-0065`, then `byte-page-0066`). Keep optimized local copies under `src/governance-detail/`.
 - All three AI-exploration cards link to detail pages and preserve their source images' natural tall aspect ratios. The source pages are legacy `/project-ai-placeholder`, `/project-ai-portfolio`, and `/project-ai-native`; keep their local assets under the matching `src/ai-*-detail/` folders.
+- Keep the incentive-platform card media background pure black so it blends seamlessly with the diagram image.

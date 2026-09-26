@@ -502,7 +502,7 @@ img { user-select: none; }
   height: 100%;
   object-fit: contain;
 }
-.scene-incentive { background: radial-gradient(circle at center, #161b3e, #07070b 62%); }
+.scene-incentive { background: #000; }
 .scene-incentive img { left: 68.12px; top: 31.6px; width: 340.067px; height: 317.956px; object-fit: cover; }
 .scene-data { background: #387dfe; }
 .scene-data img { left: -12.33px; top: -49.43px; width: 559.983px; height: 435.96px; object-fit: cover; }
