@@ -84,7 +84,7 @@ const skillTags = [
 const leftProjects = [
   { id: "matrix", title: "AI 搭建提效平台", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
   { id: "signin", title: "提签到连签率流程优化升级", description: "三端LT30留存1.48pp，人均连签天数提升1.2天", width: 494, height: 401, mediaHeight: 277.071 },
-  { id: "lighthouse", title: "主导灯塔专业版项目改版", description: "挖掘业务策略机会点，推动全链路体验升级", width: 494, height: 491, mediaHeight: 362.672 },
+  { id: "lighthouse", title: "主导灯塔专业版项目改版", description: "MAU从10W上升至 16W,次日回访率上升至75%", width: 494, height: 491, mediaHeight: 362.672 },
   { id: "governance", title: "建立体验问题治理闭环", description: "体验问题由零散反馈升级为可治理的问题池,闭环效率显著提升，问题闭环率+13%,投诉/负反馈下降10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
 ];
 
