@@ -97,7 +97,7 @@ const rightProjects = [
 const allProjects = [...leftProjects, ...rightProjects];
 const projectImageAssets = {
   matrix: "matrix-final-v2.png",
-  signin: "6270a.png",
+  signin: "signin-cover-v2.png",
   lighthouse: "lighthouse-final.png",
   governance: "governance-final-v2.png",
   incentive: "3c720.png",
