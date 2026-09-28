@@ -140,6 +140,17 @@ const signinDetailImages = Array.from(
   (_, index) => signinDetailImageModules[`./signin-detail/signin-detail-${String(index + 1).padStart(2, "0")}.jpg`],
 );
 
+const treasureDetailImageModules = import.meta.glob("./treasure-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const treasureDetailImages = Array.from(
+  { length: 15 },
+  (_, index) => treasureDetailImageModules[`./treasure-detail/treasure-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
+
 const governanceDetailImageModules = import.meta.glob("./governance-detail/*.jpg", {
   eager: true,
   import: "default",
@@ -187,6 +198,7 @@ const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restora
 const projectDetailGalleries = {
   matrix: matrixDetailImages,
   signin: signinDetailImages,
+  treasure: treasureDetailImages,
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
   governance: governanceDetailImages,
