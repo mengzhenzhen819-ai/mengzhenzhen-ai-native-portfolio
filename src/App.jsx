@@ -129,6 +129,17 @@ const didiDetailImages = Array.from(
   (_, index) => didiDetailImageModules[`./didi-detail/didi-detail-${index + 1}.jpg`],
 );
 
+const signinDetailImageModules = import.meta.glob("./signin-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const signinDetailImages = Array.from(
+  { length: 17 },
+  (_, index) => signinDetailImageModules[`./signin-detail/signin-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
+
 const governanceDetailImageModules = import.meta.glob("./governance-detail/*.jpg", {
   eager: true,
   import: "default",
@@ -175,6 +186,7 @@ const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restora
 
 const projectDetailGalleries = {
   matrix: matrixDetailImages,
+  signin: signinDetailImages,
   lighthouse: lighthouseDetailImages,
   data: didiDetailImages,
   governance: governanceDetailImages,
