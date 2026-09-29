@@ -89,7 +89,7 @@ const leftProjects = [
 ];
 
 const rightProjects = [
-  { id: "incentive", title: "激励中台0-1搭建", description: "从多端激励玩法的共性问题出发,抽象底层能力、统一体验规则,并沉淀可配置化的设计方案，支撑玩法高效复用与快速上线", width: 495, height: 533, mediaHeight: 360.871, detailLayout: "longform" },
+  { id: "incentive", title: "0-1 建系统", description: "从多端激励玩法的共性问题出发,抽象底层能力、统一体验规则,并沉淀可配置化的设计方案，支撑玩法高效复用与快速上线", width: 495, height: 533, mediaHeight: 360.871, detailLayout: "longform" },
   { id: "treasure", title: "提宝箱开启率流程优化升级", description: "三端LT30留存+0.15pp，宝箱总PV+8.32%", width: 495, height: 411, mediaHeight: 277.071 },
   { id: "data", title: "B端数易数据平台", description: "优化复杂数据看板与分析工具的使用效率,帮助产品体验提效", width: 494.821, height: 524.06, mediaHeight: 369.429 },
 ];
