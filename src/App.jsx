@@ -178,7 +178,10 @@ const incentiveDetailImageModules = import.meta.glob("./incentive-detail/*.jpg",
   query: "?url",
 });
 
-const incentiveDetailImages = [incentiveDetailImageModules["./incentive-detail/incentive-detail.jpg"]];
+const incentiveDetailImages = Array.from(
+  { length: 16 },
+  (_, index) => incentiveDetailImageModules[`./incentive-detail/incentive-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
 
 const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
   eager: true,
@@ -667,7 +670,7 @@ function ProjectDetailPage({ project }) {
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
         {detailImages ? (
-          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""}`} aria-label={`${project.title}项目完整方案`}>
+          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => (
               <figure className="project-detail-visual" key={image}>
                 <img
@@ -675,6 +678,8 @@ function ProjectDetailPage({ project }) {
                   alt={`${project.title}项目方案第${index + 1}页`}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding="async"
+                  width={project.id === "incentive" ? 2339 : undefined}
+                  height={project.id === "incentive" ? 2048 : undefined}
                 />
               </figure>
             ))}
