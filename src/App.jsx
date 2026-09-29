@@ -670,7 +670,7 @@ function ProjectDetailPage({ project }) {
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
         {detailImages ? (
-          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""}`} aria-label={`${project.title}项目完整方案`}>
+          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""} ${project.id === "matrix" ? "project-detail-gallery-matrix" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => (
               <figure className="project-detail-visual" key={image}>
                 <img
