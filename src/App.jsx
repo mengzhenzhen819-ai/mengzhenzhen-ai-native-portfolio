@@ -147,7 +147,7 @@ const treasureDetailImageModules = import.meta.glob("./treasure-detail/*.jpg", {
 });
 
 const treasureDetailImages = Array.from(
-  { length: 15 },
+  { length: 14 },
   (_, index) => treasureDetailImageModules[`./treasure-detail/treasure-detail-${String(index + 1).padStart(2, "0")}.jpg`],
 );
 
@@ -178,22 +178,14 @@ const incentiveDetailImageModules = import.meta.glob("./incentive-detail/*.jpg",
   query: "?url",
 });
 
-const incentiveDetailImage = (name, height = 2048) => ({
+const incentiveDetailImage = (name) => ({
   src: incentiveDetailImageModules[`./incentive-detail/incentive-detail-${name}.jpg`],
   width: 2339,
-  height,
+  height: 2048,
 });
 
 const incentiveDetailImages = [
-  ...Array.from({ length: 10 }, (_, index) => incentiveDetailImage(String(index + 1).padStart(2, "0"))),
-  incentiveDetailImage("11-before", 1750),
-  incentiveDetailImage("13-after", 448),
-  incentiveDetailImage("14"),
-  incentiveDetailImage("15"),
-  incentiveDetailImage("16"),
-  incentiveDetailImage("11-fusion", 298),
-  incentiveDetailImage("12"),
-  incentiveDetailImage("13-fusion", 1600),
+  ...Array.from({ length: 16 }, (_, index) => incentiveDetailImage(`refresh-${String(index + 1).padStart(2, "0")}`)),
 ];
 
 const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
