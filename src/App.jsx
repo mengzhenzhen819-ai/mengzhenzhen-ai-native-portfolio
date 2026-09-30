@@ -178,10 +178,23 @@ const incentiveDetailImageModules = import.meta.glob("./incentive-detail/*.jpg",
   query: "?url",
 });
 
-const incentiveDetailImages = Array.from(
-  { length: 16 },
-  (_, index) => incentiveDetailImageModules[`./incentive-detail/incentive-detail-${String(index + 1).padStart(2, "0")}.jpg`],
-);
+const incentiveDetailImage = (name, height = 2048) => ({
+  src: incentiveDetailImageModules[`./incentive-detail/incentive-detail-${name}.jpg`],
+  width: 2339,
+  height,
+});
+
+const incentiveDetailImages = [
+  ...Array.from({ length: 10 }, (_, index) => incentiveDetailImage(String(index + 1).padStart(2, "0"))),
+  incentiveDetailImage("11-before", 1750),
+  incentiveDetailImage("13-after", 448),
+  incentiveDetailImage("14"),
+  incentiveDetailImage("15"),
+  incentiveDetailImage("16"),
+  incentiveDetailImage("11-fusion", 298),
+  incentiveDetailImage("12"),
+  incentiveDetailImage("13-fusion", 1600),
+];
 
 const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
   eager: true,
@@ -671,18 +684,23 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-description">{project.description}</p>
         {detailImages ? (
           <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""} ${project.id === "matrix" ? "project-detail-gallery-matrix" : ""}`} aria-label={`${project.title}项目完整方案`}>
-            {detailImages.map((image, index) => (
-              <figure className="project-detail-visual" key={image}>
-                <img
-                  src={image}
-                  alt={`${project.title}项目方案第${index + 1}页`}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  decoding="async"
-                  width={project.id === "incentive" ? 2339 : undefined}
-                  height={project.id === "incentive" ? 2048 : undefined}
-                />
-              </figure>
-            ))}
+            {detailImages.map((image, index) => {
+              const imageSource = typeof image === "string" ? image : image.src;
+              const imageWidth = typeof image === "string" ? undefined : image.width;
+              const imageHeight = typeof image === "string" ? undefined : image.height;
+              return (
+                <figure className="project-detail-visual" key={imageSource}>
+                  <img
+                    src={imageSource}
+                    alt={`${project.title}项目方案第${index + 1}页`}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    width={imageWidth}
+                    height={imageHeight}
+                  />
+                </figure>
+              );
+            })}
           </div>
         ) : (
           <figure className="project-detail-visual">
