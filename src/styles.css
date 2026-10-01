@@ -655,18 +655,33 @@ img { user-select: none; }
 
 .closing-section {
   position: relative;
-  width: min(1496px, 100%);
-  height: 672px;
-  margin: 44.5px auto 0;
+  width: min(1001px, calc(100% - 40px));
+  height: 683px;
+  margin: 94.5px auto 0;
   overflow: hidden;
   border: 0;
-  border-radius: 8px 8px 0 0;
-  background: linear-gradient(24.1895deg, #171717 0%, #171717 50%, #0a0a0a 100%);
+  border-top: 1px solid #404040;
+  border-radius: 12px;
+  background: #262626;
+  box-shadow: 0 1px 1.5px #000, 0 1px 1px #000;
+}
+.closing-section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 7px;
+  right: 7.5px;
+  bottom: 7px;
+  left: 8.5px;
+  border-bottom: 1px solid #404040;
+  border-radius: 8px;
+  background: linear-gradient(34.1839deg, #171717 0%, #171717 50%, #0a0a0a 100%);
 }
 .closing-section h2 {
   position: absolute;
-  top: 76.86px;
-  left: calc(50% - 20px);
+  z-index: 1;
+  top: 75.87px;
+  left: calc(50% - .5px);
   width: 570.5px;
   margin: 0;
   color: #fff;
@@ -679,8 +694,9 @@ img { user-select: none; }
 }
 .closing-photo {
   position: absolute;
-  top: 200.81px;
-  left: calc(50% - 18.17px);
+  z-index: 1;
+  top: 199.82px;
+  left: calc(50% - .5px);
   width: 238.053px;
   height: 305.104px;
   display: block;
@@ -691,8 +707,9 @@ img { user-select: none; }
 }
 .closing-contact-grid {
   position: absolute;
-  top: 542.77px;
-  left: calc(50% - 20px);
+  z-index: 1;
+  top: 545.87px;
+  left: calc(50% - .5px);
   width: 443.52px;
   display: grid;
   grid-template-columns: 177.94px 253.9px;
