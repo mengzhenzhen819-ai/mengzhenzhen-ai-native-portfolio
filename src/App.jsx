@@ -396,8 +396,8 @@ function ProfileCard() {
             <h1>孟珍珍</h1>
             <div className="rule" />
             <div className="profile-bio">
-              <p>Hi，我是Magic，关注用户<br />体验，更关注设计如何<br />推动业务</p>
-              <p>我希望让复杂的产品更<br />清晰，让用户使用更自然</p>
+              <p>Hi，我是 Magic，关注用户体<br />验，更关注设计如何推动业务，</p>
+              <p>我希望让复杂的产品更清<br />晰，让用户使用更自然。</p>
               <p>我积极探索 AI 辅助设计，将其<br />融入方案探索与重复任务，提升<br />效率，为思考与打磨留出更多空间</p>
             </div>
           </div>
@@ -461,7 +461,7 @@ async function copyToClipboard(value) {
   }
 }
 
-function CopyButton({ icon, value }) {
+function CopyButton({ icon, value, className = "" }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     await copyToClipboard(value);
@@ -469,7 +469,7 @@ function CopyButton({ icon, value }) {
     window.setTimeout(() => setCopied(false), 1500);
   };
   return (
-    <button className={`contact-button ${copied ? "is-copied" : ""}`} type="button" onClick={copy}>
+    <button className={`contact-button ${className} ${copied ? "is-copied" : ""}`.trim()} type="button" onClick={copy}>
       <span className="contact-button-inner">
         <img src={asset(icon)} alt="" /><span>{copied ? "已复制" : value}</span>
       </span>
@@ -684,8 +684,8 @@ function ProjectExperience() {
 }
 
 const aiProjects = [
-  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词，让 AI 快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
-  { id: "ai-portfolio", title: "如何用 vibe coding 做作品集（本站）", description: "用 AI 工具辅助设计并构建本动态作品集网站，以产品思维替代传统 PDF，记录 AI 协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
+  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词,让AI快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
+  { id: "ai-portfolio", title: "如何用vibe coding做作品集(本站)", description: "用AI工具辅助设计并构建本动态作品集网站,以产品思维替代传统PDF，记录AI协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
   { id: "ai-restoration", title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png", detailLayout: "longform" },
 ];
 
@@ -698,7 +698,7 @@ function AISection() {
       <div
         className="ai-viewport"
         role="region"
-        aria-label="AI 探索项目，向左滑动查看更多"
+        aria-label="AI 探索项目"
         tabIndex="0"
       >
         <div className="ai-grid">
@@ -725,6 +725,26 @@ function AISection() {
             );
           })}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ClosingSection() {
+  return (
+    <section className="closing-section" id="contact" data-reveal aria-labelledby="closing-title">
+      <h2 id="closing-title">
+        AI 时代，好的体验比以往任何时候都重要，<br />
+        期待一起合作🤝，欢迎聊聊～
+      </h2>
+      <img
+        className="closing-photo"
+        src={asset("contact-portrait.png")}
+        alt="孟珍珍与宠物犬在草地合影"
+      />
+      <div className="closing-contact-grid" aria-label="联系方式">
+        <CopyButton className="closing-contact-button" icon="2e5c2.svg" value="15291968365" />
+        <CopyButton className="closing-contact-button" icon="02824.svg" value="15291968365@163.com" />
       </div>
     </section>
   );
@@ -848,8 +868,8 @@ export function App() {
         <div className="resume-shell"><ExperienceSection /></div>
         <div className="resume-shell"><ProjectExperience /></div>
         <div className="resume-shell"><AISection /></div>
+        <ClosingSection />
       </main>
-      <footer><span>© Magic Meng</span><span>AI-Native Portfolio · 2026</span></footer>
     </div>
   );
 }
