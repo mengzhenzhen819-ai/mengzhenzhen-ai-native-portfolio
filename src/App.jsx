@@ -73,19 +73,19 @@ const experiences = [
 ];
 
 const skillTags = [
-  { label: "AI 平台搭建", width: 159 },
-  { label: "增长设计", width: 152 },
-  { label: "0-1建中台体系", width: 150 },
-  { label: "0-1大项目改版", width: 163 },
-  { label: "B端数据后台", width: 141 },
-  { label: "协作流程优化", width: 159 },
+  { label: "AI 平台搭建", width: 159, projectIds: ["matrix"] },
+  { label: "增长设计", width: 152, projectIds: ["signin", "treasure"] },
+  { label: "0-1建中台体系", width: 150, projectIds: ["incentive"] },
+  { label: "0-1大项目改版", width: 163, projectIds: ["lighthouse"] },
+  { label: "B端数据后台", width: 141, projectIds: ["data"] },
+  { label: "协作流程优化", width: 159, projectIds: ["governance"] },
 ];
 
 const leftProjects = [
   { id: "matrix", title: "AI 搭建提效平台", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
   { id: "signin", title: "提签到连签率流程优化升级", description: "三端LT30留存1.48pp，人均连签天数提升1.2天", width: 494, height: 401, mediaHeight: 277.071 },
   { id: "lighthouse", title: "主导灯塔专业版项目改版", description: "MAU从10W上升至 16W,次日回访率上升至75%", width: 494, height: 491, mediaHeight: 362.672 },
-  { id: "governance", title: "建立体验问题治理闭环", description: "体验问题由零散反馈升级为可治理的问题池,闭环效率显著提升，问题闭环率+13%,投诉/负反馈下降10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
+  { id: "governance", title: "搭建体验问题治理流程", description: "体验问题由零散反馈升级为可治理的问题池,闭环效率显著提升，问题闭环率+13%,投诉/负反馈下降10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
 ];
 
 const rightProjects = [
@@ -161,17 +161,6 @@ const governanceDetailImages = [65, 66].map(
   (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
 );
 
-const matrixDetailImageModules = import.meta.glob("./matrix-detail-hd/*.png", {
-  eager: true,
-  import: "default",
-  query: "?url",
-});
-
-const matrixDetailImages = Array.from(
-  { length: 13 },
-  (_, index) => matrixDetailImageModules[`./matrix-detail-hd/matrix-detail-${String(index + 1).padStart(2, "0")}.png`],
-);
-
 const incentiveDetailImageModules = import.meta.glob("./incentive-detail/*.jpg", {
   eager: true,
   import: "default",
@@ -212,7 +201,6 @@ const aiPortfolioDetailImages = [aiPortfolioDetailImageModules["./ai-portfolio-d
 const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restoration-detail/ai-native-restoration-detail.png"]];
 
 const projectDetailGalleries = {
-  matrix: matrixDetailImages,
   incentive: incentiveDetailImages,
   signin: signinDetailImages,
   treasure: treasureDetailImages,
@@ -261,14 +249,44 @@ function useReveal() {
 
 function useProjectReturnTarget() {
   useEffect(() => {
-    if (!window.location.hash.startsWith("#project-")) return undefined;
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    const navigationEntry = window.performance.getEntriesByType("navigation")[0];
+    const isReload = navigationEntry?.type === "reload";
+
+    if (isReload) {
+      if (window.location.hash) {
+        window.history.replaceState(
+          window.history.state,
+          "",
+          `${window.location.pathname}${window.location.search}`,
+        );
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      const frame = window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+
+    if (!window.location.hash.startsWith("#project-")) {
+      return () => {
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
     const frame = window.requestAnimationFrame(() => {
       const target = document.querySelector(window.location.hash);
       if (!target) return;
       target.scrollIntoView({ block: "center", behavior: "auto" });
       target.focus({ preventScroll: true });
     });
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
   }, []);
 }
 
@@ -377,7 +395,11 @@ function ProfileCard() {
           <div className="profile-copy">
             <h1>孟珍珍</h1>
             <div className="rule" />
-            <p>Hi，我是Magic，产品体验设计师，先后经历滴滴 · 阿里 · 字节跳动。具备大型 ToC / ToB 项目全链路设计经验，横跨 B 端数据平台到 C端增长激励，目前正在负责 AI 出海业务产品设计工作，并有6人团队管理经验</p>
+            <div className="profile-bio">
+              <p>Hi，我是Magic，关注用户<br />体验，更关注设计如何<br />推动业务</p>
+              <p>我希望让复杂的产品更<br />清晰，让用户使用更自然</p>
+              <p>我积极探索 AI 辅助设计，将其<br />融入方案探索与重复任务，提升<br />效率，为思考与打磨留出更多空间</p>
+            </div>
           </div>
           <div className="portrait-wrap">
             <img src={asset("5f44c.png")} alt="孟珍珍肖像" />
@@ -387,6 +409,7 @@ function ProfileCard() {
           </div>
         </div>
       </div>
+      <DraggableSticker src={asset("23436.svg")} className="rocket-sticker" />
     </section>
   );
 }
@@ -409,7 +432,6 @@ function LocationCard() {
   const time = useTallinnTime();
   return (
     <section className="location-wrap" data-reveal aria-label="当前位置">
-      <DraggableSticker src={asset("23436.svg")} className="rocket-sticker" />
       <div className="location-shell">
         <img className="map-art" src={asset("094ef.svg")} alt="" />
         <div className="location-frame">
@@ -461,13 +483,19 @@ function StatsCard() {
       <DraggableSticker src={asset("d133d.svg")} className="glasses-sticker" />
       <DraggableSticker src={asset("2b24d.svg")} className="smile-sticker" />
       <div className="stats-card">
-        <h2><img src={asset("f9755.svg")} alt="" />体验设计师 × AI 时代</h2>
+        <h2>体验设计师 × AI 时代</h2>
         <div className="stats-grid">
           <div><strong>7+</strong><span>设计经验</span></div>
           <div><strong>3家</strong><span>头部互联网</span></div>
           <div><strong>亿+</strong><span>用户规模覆盖</span></div>
           <div><strong>硕士</strong><span>设计学</span></div>
         </div>
+        <p className="career-summary">
+          先后经历滴滴 · 阿里 · 字节跳动<br />
+          具备大型 ToC / ToB 项目全链路设计经验，横跨 B 端<br />
+          数据平台到 C 端增长激励，最近在负责 AI 出海业务<br />
+          产品设计工作，并管理 6人团队
+        </p>
         <div className="stats-divider" />
         <div className="contact-grid">
           <CopyButton icon="2e5c2.svg" value="15291968365" />
@@ -517,13 +545,19 @@ function ExperienceSection() {
   );
 }
 
-function SkillSection() {
+function SkillSection({ activeSkill, onSelectSkill }) {
   return (
     <section className="skills-section" id="projects" data-reveal>
       <SectionTitle>项目经验</SectionTitle>
       <div className="skill-tags">
         {skillTags.map(({ label, width }) => (
-          <button type="button" key={label} style={{ "--tag-width": `${width}px` }}>
+          <button
+            type="button"
+            key={label}
+            aria-pressed={activeSkill === label}
+            onClick={() => onSelectSkill(label)}
+            style={{ "--tag-width": `${width}px` }}
+          >
             <span className="skill-tag-inner">
               <span>{label}</span>
             </span>
@@ -559,7 +593,7 @@ function ProjectMedia({ id }) {
   return null;
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, order }) {
   const cardRef = useRef(null);
   const move = (event) => {
     const node = cardRef.current;
@@ -585,6 +619,7 @@ function ProjectCard({ project }) {
       href={`/projects/${project.id}`}
       aria-label={`查看${project.title}项目详情`}
       style={{
+        order,
         "--card-width": `${project.width}px`,
         "--card-height": `${project.height}px`,
         "--media-height": `${project.mediaHeight}px`,
@@ -599,12 +634,52 @@ function ProjectCard({ project }) {
   );
 }
 
-function ProjectsSection() {
+function ProjectsSection({ activeSkill }) {
+  const selectedSkill = skillTags.find(({ label }) => label === activeSkill);
+
+  if (!selectedSkill) {
+    return (
+      <section className="projects-grid" data-reveal aria-label="项目作品">
+        <div className="project-column project-column-left">{leftProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+        <div className="project-column project-column-right">{rightProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+      </section>
+    );
+  }
+
+  const defaultVisualOrder = [
+    leftProjects[0], rightProjects[0],
+    leftProjects[1], rightProjects[1],
+    leftProjects[2], rightProjects[2],
+    leftProjects[3],
+  ];
+  const priorityIds = new Set(selectedSkill.projectIds);
+  const reorderedProjects = [
+    ...selectedSkill.projectIds.map((id) => allProjects.find((project) => project.id === id)),
+    ...defaultVisualOrder.filter((project) => !priorityIds.has(project.id)),
+  ].filter(Boolean);
+  const reorderedLeft = reorderedProjects.filter((_, index) => index % 2 === 0);
+  const reorderedRight = reorderedProjects.filter((_, index) => index % 2 === 1);
+  const projectOrder = new Map(reorderedProjects.map((project, index) => [project.id, index]));
+
   return (
-    <section className="projects-grid" data-reveal aria-label="项目作品">
-      <div className="project-column project-column-left">{leftProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
-      <div className="project-column project-column-right">{rightProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+    <section className="projects-grid is-reordered" aria-label={`${activeSkill}相关项目优先展示`} aria-live="polite">
+      <div className="project-column project-column-left">{reorderedLeft.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
+      <div className="project-column project-column-right">{reorderedRight.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
     </section>
+  );
+}
+
+function ProjectExperience() {
+  const [activeSkill, setActiveSkill] = useState(null);
+  const selectSkill = (label) => {
+    setActiveSkill((current) => (current === label ? null : label));
+  };
+
+  return (
+    <>
+      <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} />
+      <ProjectsSection activeSkill={activeSkill} />
+    </>
   );
 }
 
@@ -655,6 +730,48 @@ function AISection() {
   );
 }
 
+function MatrixPdfViewer({ url, title }) {
+  const [pdfSource, setPdfSource] = useState("");
+  const [pdfError, setPdfError] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    let objectUrl = "";
+
+    async function loadPdf() {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`PDF request failed: ${response.status}`);
+        const pdfBuffer = await response.arrayBuffer();
+        objectUrl = URL.createObjectURL(new Blob([pdfBuffer], { type: "application/pdf" }));
+        if (active) setPdfSource(`${objectUrl}#view=FitH&zoom=page-width&toolbar=0&navpanes=0`);
+      } catch {
+        if (active) setPdfError(true);
+      }
+    }
+
+    loadPdf();
+    return () => {
+      active = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [url]);
+
+  if (pdfError) {
+    return (
+      <div className="project-detail-pdf-loading" role="alert">
+        PDF 暂时无法在页面内显示，请刷新页面重试
+      </div>
+    );
+  }
+
+  if (!pdfSource) {
+    return <div className="project-detail-pdf-loading" role="status">高清 PDF 加载中…</div>;
+  }
+
+  return <iframe className="project-detail-pdf-viewer" src={pdfSource} title={title} />;
+}
+
 function ProjectDetailPage({ project }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -663,6 +780,8 @@ function ProjectDetailPage({ project }) {
   }, [project]);
 
   const detailImages = projectDetailGalleries[project.id];
+  const isMatrixPdf = project.id === "matrix";
+  const matrixPdfUrl = "/documents/matrix-ai-platform.pdf";
 
   return (
     <div className="project-detail-page">
@@ -674,8 +793,15 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
-        {detailImages ? (
-          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""} ${project.id === "matrix" ? "project-detail-gallery-matrix" : ""}`} aria-label={`${project.title}项目完整方案`}>
+        {isMatrixPdf ? (
+          <section className="project-detail-pdf" aria-label={`${project.title}高清 PDF`}>
+            <div className="project-detail-pdf-toolbar">
+              <span>高清 PDF · 13 页</span>
+            </div>
+            <MatrixPdfViewer url={matrixPdfUrl} title={`${project.title}高清 PDF`} />
+          </section>
+        ) : detailImages ? (
+          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => {
               const imageSource = typeof image === "string" ? image : image.src;
               const imageWidth = typeof image === "string" ? undefined : image.width;
@@ -716,11 +842,11 @@ export function App() {
       <Header />
       <main>
         <div className="resume-shell hero-layout">
-          <div className="hero-left"><ProfileCard /><LocationCard /></div>
+          <div className="hero-left"><ProfileCard /></div>
           <StatsCard />
         </div>
         <div className="resume-shell"><ExperienceSection /></div>
-        <div className="resume-shell"><SkillSection /><ProjectsSection /></div>
+        <div className="resume-shell"><ProjectExperience /></div>
         <div className="resume-shell"><AISection /></div>
       </main>
       <footer><span>© Magic Meng</span><span>AI-Native Portfolio · 2026</span></footer>
