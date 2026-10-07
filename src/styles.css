@@ -22,10 +22,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-color: #0a0a0a;
-  background-image: url("/figma-resume/1bac1.png");
-  background-repeat: repeat-y;
-  background-position: center top;
-  background-size: 3700px 3874px;
+  background-image:
+    linear-gradient(to bottom, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 95%, #0a0a0a 100%),
+    url("/figma-resume/1bac1.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center top;
+  background-size: 100% 3874px, 3700px 3874px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -783,7 +785,7 @@ footer {
 }
 
 @media (max-width: 720px) {
-  body { background-size: 1680px auto; background-position: center top; }
+  body { background-size: 100% 1680px, 1680px 1680px; background-position: center top, center top; }
   .site-header { height: 76px; padding: 12px 16px; }
   .brand img { width: 36px; height: 48px; }
   .brand span { font-size: 20px; }
