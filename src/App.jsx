@@ -5,7 +5,7 @@ const asset = (name) => `${ASSET}/${name}`;
 
 const experiences = [
   {
-    period: "2026/5-至今",
+    period: "2026入职",
     company: "即时设计",
     role: "AI海外业务设计负责人",
     points: [
@@ -16,7 +16,7 @@ const experiences = [
     ],
   },
   {
-    period: "2026/1-2026/5",
+    period: "2026",
     company: "AI Exploration",
     role: "",
     points: [
@@ -26,7 +26,7 @@ const experiences = [
     ],
   },
   {
-    period: "2022/8 - 2025/9",
+    period: "2022入职",
     company: "字节跳动",
     role: "抖音app体验设计",
     points: [
@@ -37,7 +37,7 @@ const experiences = [
     ],
   },
   {
-    period: "2020/5 - 2022/8",
+    period: "2020入职",
     company: "阿里巴巴集团",
     role: "BtoC大型影视产品设计",
     points: [
@@ -47,7 +47,7 @@ const experiences = [
     ],
   },
   {
-    period: "2019/7 - 2020/5",
+    period: "2019入职",
     company: "滴滴出行",
     role: "B端企业级数据产品交互设计",
     points: [
@@ -56,7 +56,7 @@ const experiences = [
     ],
   },
   {
-    period: "2017/1 - 2019/7",
+    period: "2017入职",
     company: "易点天下",
     role: "UI设计",
     points: [
@@ -65,7 +65,7 @@ const experiences = [
     ],
   },
   {
-    period: "2016/6 - 2016/12",
+    period: "2016入职",
     company: "中兴通讯",
     role: "UI设计实习",
     points: ["实习期间负责手机桌面图标、系统设置图标及系统界面设计"],
