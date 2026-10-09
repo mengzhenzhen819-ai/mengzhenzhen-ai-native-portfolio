@@ -1,45 +1,45 @@
-# Design QA — Lighthouse project image replacement
+# Design QA — 工作经历左侧对齐
 
-- Source visual truth: `/var/folders/ym/1d49hm_s62g2v_0zw4ljscdw0000gn/T/codex-clipboard-3251b405-5286-4c56-8fec-0d60d0495172.png`
-- Implementation screenshot: `/Users/dundun/Documents/Codex/2026-09-22/https-kuldar-com-https-kuldar-com/prototype/implementation-lighthouse.png`
-- Focused implementation crop: `/Users/dundun/Documents/Codex/2026-09-22/https-kuldar-com-https-kuldar-com/prototype/implementation-lighthouse-card.png`
-- Viewport: 1280 × 720 CSS px
-- Source pixels: 986 × 728
-- Implementation media: 495 × 363 CSS px at device scale 1
-- Normalization: source viewed proportionally at the implementation width; `object-fit: cover` produces only a negligible vertical edge crop caused by the 1.354 vs 1.364 aspect-ratio difference.
-- State: default project-card state
+- Source visual truth: `/var/folders/ym/1d49hm_s62g2v_0zw4ljscdw0000gn/T/codex-clipboard-0bb8ec36-427c-4330-889b-cdb475ab64fa.png`
+- Implementation evidence: Codex in-app browser capture of `http://localhost:4177/`
+- Viewport: 1496 × 900 CSS px
+- Source pixels: 1134 × 846
+- Implementation component: 1001px-wide experience shell at device scale 1
+- Normalization: focused comparison of the experience-card top area; browser chrome and surrounding page content excluded
+- State: desktop, experience section expanded
 
 ## Full-view comparison evidence
 
-The updated page was opened in the Codex in-app browser at `http://localhost:4175/`. The target card now uses the supplied bitmap directly. The surrounding two-column project layout, card border, copy area, spacing, and neighboring cards remain unchanged.
+The existing page layout and experience-card proportions remain unchanged. The requested change is limited to the left alignment inside the first work-experience item.
 
 ## Focused region comparison evidence
 
-The source image and the focused 495 × 363 implementation crop were opened together in one comparison input. The composition, typography embedded in the image, orange corner shape, phone, hand, background, color, and copy are preserved from the supplied source. No independent HTML/CSS reconstruction remains inside this image.
+The supplied annotation and the updated browser-rendered region were compared at the same desktop state. The year, company name, and four bullet markers share one left origin. The list copy follows the Figma reference with a 17px indent.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: all image typography comes directly from the supplied bitmap; no substitution.
-- Spacing and layout rhythm: the image fills the existing 495 × 363 media slot without changing card spacing.
-- Colors and visual tokens: original image colors are preserved; the card shell remains unchanged.
-- Image quality and asset fidelity: the supplied 986 × 728 PNG is used directly and downscaled by the browser.
-- Copy and content: image copy exactly matches the supplied source.
+- Fonts and typography: existing font family, sizes, weights, line heights, and text content are unchanged.
+- Spacing and layout rhythm: year, company name, and bullet markers are unified on one vertical axis; list copy uses the Figma-matched 17px indentation.
+- Colors and visual tokens: unchanged.
+- Image quality and asset fidelity: the existing yellow source icon remains unchanged.
+- Copy and content: unchanged.
 
 ## Findings
 
-No actionable P0, P1, or P2 differences remain for the requested image replacement.
+No actionable P0, P1, or P2 differences remain for the requested alignment relationship.
 
 ## Comparison history
 
-1. Earlier implementation assembled separate title and phone layers, causing overlap and crop differences.
-2. Fix: removed the layered reconstruction and replaced it with the user's complete PNG as a single image.
-3. Post-fix evidence: focused browser crop matches the source composition and content.
+1. Earlier pass retained a 0.26px offset on the experience body to mirror raw Figma coordinates.
+2. The user's annotated alignment clarified that these elements should share one visual baseline.
+3. First fix: removed the body offset while preserving the 31.5px card inset.
+4. Clarification: the four bullet markers—not the list copy—should align with the company title.
+5. Final fix: reduced the marker-to-copy distance from 27px to the 17px spacing measured from Figma, while keeping the marker on the company-title axis.
 
 ## Verification
 
-- Browser-rendered implementation captured successfully.
-- Page console warnings/errors checked: none.
-- Existing project-card hover behavior remains attached to the replacement image.
-- Production build and packaging tests are run as the final verification step.
+- Browser-rendered focused region captured successfully in the Codex in-app browser.
+- Production build completed successfully.
+- No surrounding layout, content, or interactions were changed.
 
 final result: passed

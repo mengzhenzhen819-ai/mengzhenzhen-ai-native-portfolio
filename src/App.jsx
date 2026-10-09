@@ -82,16 +82,16 @@ const skillTags = [
 ];
 
 const leftProjects = [
-  { id: "matrix", title: "AI 搭建提效平台", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
-  { id: "signin", title: "提签到连签率流程优化升级", description: "三端LT30留存1.48pp，人均连签天数提升1.2天", width: 494, height: 401, mediaHeight: 277.071 },
-  { id: "lighthouse", title: "主导灯塔专业版项目改版", description: "MAU从10W上升至 16W,次日回访率上升至75%", width: 494, height: 491, mediaHeight: 362.672 },
-  { id: "governance", title: "搭建体验问题治理流程", description: "体验问题由零散反馈升级为可治理的问题池,闭环效率显著提升，问题闭环率+13%,投诉/负反馈下降10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
+  { id: "matrix", title: "AI搭建提效平台", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
+  { id: "signin", title: "让签到成为自然的习惯", description: "签到连签率流程优化升级，三端 LT30 留存 +1.48pp，人均连签天数 +1.2 天", width: 494, height: 424, mediaHeight: 277.071 },
+  { id: "lighthouse", title: "灯塔专业版 · 从 0 到 1", description: "主导大型项目改版，MAU 从 10 万增长至 16 万，次日回访率升至 75%", width: 494, height: 509, mediaHeight: 362.672 },
+  { id: "governance", title: "让体验问题有序闭环", description: "搭建体验问题治理流程，问题闭环率 +13%，投诉 / 负反馈下降 10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
 ];
 
 const rightProjects = [
-  { id: "incentive", title: "0-1 建系统", description: "抽象多端激励共性能力，支撑跨业务快速复用；汽水音乐接入后开发成本降低 45%，商业化 ARPPU +36.5%，大盘收入 +3%", width: 495, height: 533, mediaHeight: 360.871, detailLayout: "longform" },
-  { id: "treasure", title: "提宝箱开启率流程优化升级", description: "三端LT30留存+0.15pp，宝箱总PV+8.32%", width: 495, height: 411, mediaHeight: 277.071 },
-  { id: "data", title: "B端数易数据平台", description: "优化复杂数据看板与分析工具的使用效率,帮助产品体验提效", width: 494.821, height: 524.06, mediaHeight: 369.429 },
+  { id: "incentive", title: "搭建可复用的激励中台", description: "抽象多端激励共性能力，汽水音乐接入开发成本降低 45%，商业化 ARPPU +36.5%", width: 495, height: 512, mediaHeight: 360.871, detailLayout: "longform" },
+  { id: "treasure", title: "从打开宝箱到持续参与", description: "宝箱开启率流程优化升级，三端 LT30 留存 +0.15pp，宝箱总 PV +8.32%", width: 495, height: 427, mediaHeight: 277.071 },
+  { id: "data", title: "数易 · 让中台数据更清晰", description: "优化繁杂数据看板与分析工具的使用效率,帮助产品体验提效", width: 494.821, height: 524.06, mediaHeight: 369.429 },
 ];
 
 const allProjects = [...leftProjects, ...rightProjects];
@@ -395,17 +395,20 @@ function ProfileCard() {
           <div className="profile-copy">
             <h1>孟珍珍</h1>
             <div className="rule" />
+            <p className="profile-tagline">让复杂更清晰<br />让体验更自然</p>
             <div className="profile-bio">
-              <p>Hi，我是 Magic，关注用户体<br />验，更关注设计如何推动业务，</p>
-              <p>我希望让复杂的产品更清<br />晰，让用户使用更自然。</p>
-              <p>我积极探索 AI 辅助设计，将其<br />融入方案探索与重复任务，提升<br />效率，为思考与打磨留出更多空间</p>
+              <p>
+                Hi，我是 Magic，体验设计师<br />
+                与 AI 探索者，我关注用户体<br />
+                验，更关注设计如何推动业务，<br />
+                我积极探索 AI 辅助设计，将其<br />
+                融入方案探索与重复任务，提<br />
+                升效率，为思考留出更多空间
+              </p>
             </div>
           </div>
           <div className="portrait-wrap">
             <img src={asset("5f44c.png")} alt="孟珍珍肖像" />
-          </div>
-          <div className="profile-tags">
-            <span>AI产品</span><span>增长玩法</span><span>全链路设计思维</span><span>数据导向</span>
           </div>
         </div>
       </div>
@@ -483,12 +486,14 @@ function StatsCard() {
       <DraggableSticker src={asset("d133d.svg")} className="glasses-sticker" />
       <DraggableSticker src={asset("2b24d.svg")} className="smile-sticker" />
       <div className="stats-card">
-        <h2>体验设计师 × AI 时代</h2>
         <div className="stats-grid">
           <div><strong>7+</strong><span>设计经验</span></div>
           <div><strong>3家</strong><span>头部互联网</span></div>
           <div><strong>亿+</strong><span>用户规模覆盖</span></div>
           <div><strong>硕士</strong><span>设计学</span></div>
+        </div>
+        <div className="stats-tags">
+          <span>AI产品</span><span>增长玩法</span><span>全链路设计思维</span><span>数据导向</span>
         </div>
         <p className="career-summary">
           先后经历滴滴 · 阿里 · 字节跳动<br />
@@ -684,8 +689,8 @@ function ProjectExperience() {
 }
 
 const aiProjects = [
-  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词,让AI快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
-  { id: "ai-portfolio", title: "如何用vibe coding做作品集(本站)", description: "用AI工具辅助设计并构建本动态作品集网站,以产品思维替代传统PDF，记录AI协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
+  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词，让AI快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
+  { id: "ai-portfolio", title: "如何用vibe coding做作品集(本站)", description: "用AI工具辅助设计并构建本动态作品集网站，以产品思维替代传统PDF，记录AI协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
   { id: "ai-restoration", title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png", detailLayout: "longform" },
 ];
 
@@ -816,7 +821,7 @@ function ProjectDetailPage({ project }) {
         {isMatrixPdf ? (
           <section className="project-detail-pdf" aria-label={`${project.title}高清 PDF`}>
             <div className="project-detail-pdf-toolbar">
-              <span>高清 PDF · 13 页</span>
+              <span>高清 PDF · 14 页</span>
             </div>
             <MatrixPdfViewer url={matrixPdfUrl} title={`${project.title}高清 PDF`} />
           </section>
