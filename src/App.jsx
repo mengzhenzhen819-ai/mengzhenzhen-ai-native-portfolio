@@ -699,11 +699,11 @@ const detailProjects = [...allProjects, ...aiProjects.filter((project) => projec
 function AISection() {
   return (
     <section className="ai-section" data-reveal>
-      <SectionTitle>AI 探索</SectionTitle>
+      <SectionTitle>AI 学习与探索</SectionTitle>
       <div
         className="ai-viewport"
         role="region"
-        aria-label="AI 探索项目"
+        aria-label="AI 学习与探索项目"
         tabIndex="0"
       >
         <div className="ai-grid">
