@@ -164,8 +164,8 @@ img { user-select: none; }
 .portrait-wrap:hover { transform: rotate(-1.5deg) scale(1.045); }
 .portrait-wrap img {
   position: absolute;
-  left: -138.94px;
-  top: -63.19px;
+  left: -128.94px;
+  top: -49px;
   width: 466.493px;
   height: 310.995px;
   display: block;

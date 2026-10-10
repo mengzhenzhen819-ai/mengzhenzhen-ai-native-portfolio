@@ -42,4 +42,13 @@ No actionable P0, P1, or P2 differences remain for the requested alignment relat
 - Production build completed successfully.
 - No surrounding layout, content, or interactions were changed.
 
+## Latest iteration — portrait crop
+
+- Source visual truth: `/var/folders/ym/1d49hm_s62g2v_0zw4ljscdw0000gn/T/codex-clipboard-13f73229-4ff3-49c1-944e-f289ad734d5b.png`
+- Implementation evidence: Codex in-app browser capture of `http://localhost:4177/`
+- Viewport: 1280 × 720 CSS px
+- State: desktop, page header visible
+
+The portrait crop was fine-tuned from the previous pass: the subject moved 8px upward and 10px to the right inside the existing frame. The top of the hair remains fully visible with the intended breathing room, while the frame size, position, border, shadow, and rotation remain unchanged. No actionable P0, P1, or P2 differences remain for the requested portrait crop.
+
 final result: passed
