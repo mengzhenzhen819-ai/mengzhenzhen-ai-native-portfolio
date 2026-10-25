@@ -96,7 +96,6 @@ const rightProjects = [
 
 const allProjects = [...leftProjects, ...rightProjects];
 const projectImageAssets = {
-  matrix: "matrix-final-v2.png",
   signin: "signin-cover-v2.png?v=20260928-2",
   lighthouse: "lighthouse-final.png",
   governance: "governance-final-v2.png",
@@ -591,7 +590,7 @@ function SkillSection({ activeSkill, onSelectSkill }) {
 
 function ProjectMedia({ id }) {
   if (id === "matrix") return (
-    <div className="scene scene-matrix"><img src={asset(projectImageAssets.matrix)} alt="" /></div>
+    <div className="scene scene-matrix"><img src={matrixDetailImages[0].src} alt="" /></div>
   );
   if (id === "signin") return (
     <div className="scene scene-signin"><img src={asset(projectImageAssets.signin)} alt="" /></div>
