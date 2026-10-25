@@ -116,8 +116,8 @@ const matrixDetailImages = [
   1181, 1181, 1181, 1181, 1527, 1821, 1129, 1112,
 ].map((height, index) => ({
   src: matrixDetailImageModules[`./matrix-detail/matrix-detail-${String(index + 1).padStart(2, "0")}.webp`],
-  width: 1920,
-  height,
+  width: 3840,
+  height: height * 2,
 }));
 
 const lighthouseDetailImageModules = import.meta.glob("./ali-detail/*.jpg", {

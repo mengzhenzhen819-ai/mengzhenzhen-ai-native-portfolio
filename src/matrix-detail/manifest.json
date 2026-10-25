@@ -5,146 +5,163 @@
     {
       "order": 1,
       "nodeId": "40005208:339868",
-      "width": 1920,
-      "height": 1080,
-      "pngBytes": 1262202,
+      "width": 3840,
+      "height": 2160,
+      "pngBytes": 3486705,
       "file": "matrix-detail-01.webp",
-      "webpBytes": 823086
+      "webpBytes": 2369446,
+      "exportScale": 2
     },
     {
       "order": 2,
       "nodeId": "40005152:332013",
-      "width": 1920,
-      "height": 1246,
-      "pngBytes": 507249,
+      "width": 3840,
+      "height": 2492,
+      "pngBytes": 1310306,
       "file": "matrix-detail-02.webp",
-      "webpBytes": 293486
+      "webpBytes": 712916,
+      "exportScale": 2
     },
     {
       "order": 3,
       "nodeId": "40005153:332422",
-      "width": 1920,
-      "height": 1155,
-      "pngBytes": 268809,
+      "width": 3840,
+      "height": 2310,
+      "pngBytes": 726762,
       "file": "matrix-detail-03.webp",
-      "webpBytes": 153328
+      "webpBytes": 384354,
+      "exportScale": 2
     },
     {
       "order": 4,
       "nodeId": "40005191:338583",
-      "width": 1920,
-      "height": 1242,
-      "pngBytes": 333714,
+      "width": 3840,
+      "height": 2484,
+      "pngBytes": 777729,
       "file": "matrix-detail-04.webp",
-      "webpBytes": 186366
+      "webpBytes": 390454,
+      "exportScale": 2
     },
     {
       "order": 5,
       "nodeId": "40005191:338361",
-      "width": 1920,
-      "height": 1762,
-      "pngBytes": 509794,
+      "width": 3840,
+      "height": 3524,
+      "pngBytes": 1296916,
       "file": "matrix-detail-05.webp",
-      "webpBytes": 308042
+      "webpBytes": 761070,
+      "exportScale": 2
     },
     {
       "order": 6,
       "nodeId": "40005153:332549",
-      "width": 1920,
-      "height": 1155,
-      "pngBytes": 1102382,
+      "width": 3840,
+      "height": 2310,
+      "pngBytes": 3281374,
       "file": "matrix-detail-06.webp",
-      "webpBytes": 667394
+      "webpBytes": 1991376,
+      "exportScale": 2
     },
     {
       "order": 7,
       "nodeId": "40005158:334326",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 686326,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 1990889,
       "file": "matrix-detail-07.webp",
-      "webpBytes": 433138
+      "webpBytes": 1218010,
+      "exportScale": 2
     },
     {
       "order": 8,
       "nodeId": "40005158:336717",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 1312253,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 3947594,
       "file": "matrix-detail-08.webp",
-      "webpBytes": 828712
+      "webpBytes": 2525310,
+      "exportScale": 2
     },
     {
       "order": 9,
       "nodeId": "40005158:336243",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 628697,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 1766465,
       "file": "matrix-detail-09.webp",
-      "webpBytes": 403920
+      "webpBytes": 1105978,
+      "exportScale": 2
     },
     {
       "order": 10,
       "nodeId": "40005159:336947",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 966475,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 2747244,
       "file": "matrix-detail-10.webp",
-      "webpBytes": 599006
+      "webpBytes": 1716338,
+      "exportScale": 2
     },
     {
       "order": 11,
       "nodeId": "40005164:336987",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 813574,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 2383331,
       "file": "matrix-detail-11.webp",
-      "webpBytes": 517888
+      "webpBytes": 1533916,
+      "exportScale": 2
     },
     {
       "order": 12,
       "nodeId": "40005176:338080",
-      "width": 1920,
-      "height": 1181,
-      "pngBytes": 674891,
+      "width": 3840,
+      "height": 2362,
+      "pngBytes": 1838413,
       "file": "matrix-detail-12.webp",
-      "webpBytes": 420066
+      "webpBytes": 1110052,
+      "exportScale": 2
     },
     {
       "order": 13,
       "nodeId": "40005193:339496",
-      "width": 1920,
-      "height": 1527,
-      "pngBytes": 799371,
+      "width": 3840,
+      "height": 3054,
+      "pngBytes": 2284479,
       "file": "matrix-detail-13.webp",
-      "webpBytes": 491558
+      "webpBytes": 1765576,
+      "exportScale": 2
     },
     {
       "order": 14,
       "nodeId": "40005193:339557",
-      "width": 1920,
-      "height": 1821,
-      "pngBytes": 862794,
+      "width": 3840,
+      "height": 3642,
+      "pngBytes": 2507364,
       "file": "matrix-detail-14.webp",
-      "webpBytes": 516094
+      "webpBytes": 1871330,
+      "exportScale": 2
     },
     {
       "order": 15,
       "nodeId": "40005154:332646",
-      "width": 1920,
-      "height": 1129,
-      "pngBytes": 376053,
+      "width": 3840,
+      "height": 2258,
+      "pngBytes": 1004912,
       "file": "matrix-detail-15.webp",
-      "webpBytes": 228186
+      "webpBytes": 576174,
+      "exportScale": 2
     },
     {
       "order": 16,
       "nodeId": "40005203:339787",
-      "width": 1920,
-      "height": 1112,
-      "pngBytes": 486404,
+      "width": 3840,
+      "height": 2224,
+      "pngBytes": 1295762,
       "file": "matrix-detail-16.webp",
-      "webpBytes": 317344
+      "webpBytes": 1116710,
+      "exportScale": 2
     }
-  ]
+  ],
+  "exportScale": 2
 }
