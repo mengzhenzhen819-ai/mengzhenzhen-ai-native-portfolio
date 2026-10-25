@@ -105,6 +105,21 @@ const projectImageAssets = {
   data: "834ea.png",
 };
 
+const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.webp", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const matrixDetailImages = [
+  1080, 1246, 1155, 1242, 1762, 1155, 1181, 1181,
+  1181, 1181, 1181, 1181, 1527, 1821, 1129, 1112,
+].map((height, index) => ({
+  src: matrixDetailImageModules[`./matrix-detail/matrix-detail-${String(index + 1).padStart(2, "0")}.webp`],
+  width: 1920,
+  height,
+}));
+
 const lighthouseDetailImageModules = import.meta.glob("./ali-detail/*.jpg", {
   eager: true,
   import: "default",
@@ -201,6 +216,7 @@ const aiPortfolioDetailImages = [aiPortfolioDetailImageModules["./ai-portfolio-d
 const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restoration-detail/ai-native-restoration-detail.png"]];
 
 const projectDetailGalleries = {
+  matrix: matrixDetailImages,
   incentive: incentiveDetailImages,
   signin: signinDetailImages,
   treasure: treasureDetailImages,
@@ -755,48 +771,6 @@ function ClosingSection() {
   );
 }
 
-function MatrixPdfViewer({ url, title }) {
-  const [pdfSource, setPdfSource] = useState("");
-  const [pdfError, setPdfError] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    let objectUrl = "";
-
-    async function loadPdf() {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`PDF request failed: ${response.status}`);
-        const pdfBuffer = await response.arrayBuffer();
-        objectUrl = URL.createObjectURL(new Blob([pdfBuffer], { type: "application/pdf" }));
-        if (active) setPdfSource(`${objectUrl}#view=FitH&zoom=page-width&toolbar=0&navpanes=0`);
-      } catch {
-        if (active) setPdfError(true);
-      }
-    }
-
-    loadPdf();
-    return () => {
-      active = false;
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
-  }, [url]);
-
-  if (pdfError) {
-    return (
-      <div className="project-detail-pdf-loading" role="alert">
-        PDF 暂时无法在页面内显示，请刷新页面重试
-      </div>
-    );
-  }
-
-  if (!pdfSource) {
-    return <div className="project-detail-pdf-loading" role="status">高清 PDF 加载中…</div>;
-  }
-
-  return <iframe className="project-detail-pdf-viewer" src={pdfSource} title={title} />;
-}
-
 function ProjectDetailPage({ project }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -805,8 +779,6 @@ function ProjectDetailPage({ project }) {
   }, [project]);
 
   const detailImages = projectDetailGalleries[project.id];
-  const isMatrixPdf = project.id === "matrix";
-  const matrixPdfUrl = "/documents/matrix-ai-platform.pdf";
 
   return (
     <div className="project-detail-page">
@@ -818,14 +790,7 @@ function ProjectDetailPage({ project }) {
         <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
         <h1>{project.title}</h1>
         <p className="project-detail-description">{project.description}</p>
-        {isMatrixPdf ? (
-          <section className="project-detail-pdf" aria-label={`${project.title}高清 PDF`}>
-            <div className="project-detail-pdf-toolbar">
-              <span>高清 PDF · 14 页</span>
-            </div>
-            <MatrixPdfViewer url={matrixPdfUrl} title={`${project.title}高清 PDF`} />
-          </section>
-        ) : detailImages ? (
+        {detailImages ? (
           <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""}`} aria-label={`${project.title}项目完整方案`}>
             {detailImages.map((image, index) => {
               const imageSource = typeof image === "string" ? image : image.src;
