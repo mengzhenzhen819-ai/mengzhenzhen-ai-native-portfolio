@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-默认开发地址由 Vite 输出；当前设计校对使用 `http://localhost:4177/`。
+默认开发地址由 Vite 输出；当前确认版预览使用 `http://127.0.0.1:4186/`。
 
 ## 构建
 
@@ -37,3 +37,9 @@ npm run test:sites
 - `tests/`：站点构建测试
 - `AGENTS.md`：后续使用 Codex 时的项目说明
 
+
+## 当前首页版本（2026-10-25）
+
+纯黑背景与整页黄色动态颗粒，头部显示 Magic。底部为左侧中文文案与联系方式、右侧 15 张个人照片的双向波浪动画，支持悬停反馈和边缘淡出。动画在页面隐藏或减少动态效果设置开启时暂停。
+
+首屏颗粒原始范围已保存在 `source-assets/particle-checkpoints/2026-10-25-hero-only/`。如需恢复首屏限定效果，移除 `src/App.jsx` 首页根节点上的 `home-page--full-particles` 类名并重新构建；无需覆盖其他页面改动。

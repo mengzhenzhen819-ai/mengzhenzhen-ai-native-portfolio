@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import matrixDetailManifest from "./matrix-detail/manifest.json";
+import HeroAtmosphere from "./components/HeroAtmosphere.jsx";
+import ContactPhotoWaves from "./components/ContactPhotoWaves.jsx";
 
 const ASSET = "/figma-resume";
 const asset = (name) => `${ASSET}/${name}`;
@@ -267,6 +269,16 @@ function useProjectReturnTarget() {
     const navigationEntry = window.performance.getEntriesByType("navigation")[0];
     const isReload = navigationEntry?.type === "reload";
 
+    if (window.location.hash === "#contact") {
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById("contact")?.scrollIntoView({ block: "start", behavior: "instant" });
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+
     if (isReload) {
       if (window.location.hash) {
         window.history.replaceState(
@@ -381,7 +393,7 @@ function Header() {
     <header className="site-header">
       <a className="brand" href="#top" aria-label="回到顶部">
         <img src={asset("91667.png")} alt="" />
-        <span>Magic Meng</span>
+        <span>Magic</span>
       </a>
       <button
         ref={likeButton}
@@ -749,20 +761,39 @@ function AISection() {
 }
 
 function ClosingSection() {
+  const [phoneCopied, setPhoneCopied] = useState(false);
+  const copyTimer = useRef(null);
+  useEffect(() => () => clearTimeout(copyTimer.current), []);
+  const copyPhone = async () => {
+    await copyToClipboard("15291968365");
+    setPhoneCopied(true);
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setPhoneCopied(false), 1800);
+  };
   return (
-    <section className="closing-section" id="contact" data-reveal aria-labelledby="closing-title">
-      <h2 id="closing-title">
-        AI 时代，好的体验比以往任何时候都重要，<br />
-        期待一起合作🤝，欢迎聊聊～
-      </h2>
-      <img
-        className="closing-photo"
-        src={asset("contact-portrait.png")}
-        alt="孟珍珍与宠物犬在草地合影"
-      />
-      <div className="closing-contact-grid" aria-label="联系方式">
-        <CopyButton className="closing-contact-button" icon="2e5c2.svg" value="15291968365" />
-        <CopyButton className="closing-contact-button" icon="02824.svg" value="15291968365@163.com" />
+    <section className="contact-finale" id="contact" aria-labelledby="closing-title">
+      <div className="finale-shell">
+        <div className="finale-layout">
+          <div className="finale-copy finale-copy--zh">
+            <h2 id="closing-title" className="finale-heading">
+              <span className="finale-heading-lead">AI 时代</span>
+              <strong><span className="finale-highlight">好的体验</span></strong>
+              <span className="finale-heading-tail">比以往任何时候都重要</span>
+            </h2>
+            <p className="finale-intro">期待一起合作🤝，欢迎聊聊～</p>
+            <div className="finale-details">
+              <a className="finale-email finale-contact-art" href="mailto:15291968365@163.com" aria-label="发送邮件至 15291968365@163.com">
+                <img src="/contact-reference/figma-footer-email.png" alt="15291968365@163.com" width="824" height="296" />
+              </a>
+              <button className="finale-phone finale-contact-art" type="button" onClick={copyPhone} aria-label="复制手机号 15291968365">
+                <img src="/contact-reference/figma-footer-phone.png" alt="15291968365" width="702" height="100" style={{visibility: phoneCopied ? "hidden" : "visible"}} />
+                <span className="finale-copy-feedback" aria-live="polite">{phoneCopied ? "号码已复制" : ""}</span>
+              </button>
+            </div>
+          </div>
+          <ContactPhotoWaves />
+        </div>
+        <div className="finale-bottom"><span>Magic Meng © 2026</span></div>
       </div>
     </section>
   );
@@ -825,7 +856,8 @@ export function App() {
   if (detailProject) return <ProjectDetailPage project={detailProject} />;
 
   return (
-    <div id="top" className="site-root">
+    <div id="top" className="site-root home-page home-page--full-particles">
+      <HeroAtmosphere />
       <Header />
       <main>
         <div className="resume-shell hero-layout">

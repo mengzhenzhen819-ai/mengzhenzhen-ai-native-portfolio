@@ -1,0 +1,11 @@
+{
+  "mode": "hero-only",
+  "height": "135svh",
+  "desktopParticles": 1760,
+  "coarsePointerParticles": 720,
+  "source_sha256": {
+    "src/components/HeroAtmosphere.jsx": "2c02ab62b98fc99e56820d433ceb23cb4b529ce4d1056d0efb7cbe754bc3308c",
+    "src/styles.css": "5e79fcb90ed92bcb1673620f75e2ab47927da7e9c67d19f0090010358c366c8f",
+    "src/App.jsx": "db05a236e33d7152c311a95bda11d2045169c135792f0cf17c81588cb6491ed4"
+  }
+}

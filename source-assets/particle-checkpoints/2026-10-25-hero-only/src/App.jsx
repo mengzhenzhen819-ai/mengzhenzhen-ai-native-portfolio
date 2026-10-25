@@ -1,0 +1,874 @@
+import { useEffect, useRef, useState } from "react";
+import matrixDetailManifest from "./matrix-detail/manifest.json";
+import HeroAtmosphere from "./components/HeroAtmosphere.jsx";
+import ContactPhotoWaves from "./components/ContactPhotoWaves.jsx";
+
+const ASSET = "/figma-resume";
+const asset = (name) => `${ASSET}/${name}`;
+
+const experiences = [
+  {
+    period: "2026入职",
+    company: "即时设计",
+    role: "AI海外业务设计负责人",
+    points: [
+      "负责 AI 海外业务 App 设计，搭建 AI 工具、Skill 建设进行矩阵包生产提效，单包设计由 2–3pd 降低至 1pd，人力成本降低 50–60%，并沉淀 SOP 工作流",
+      "深度协同产品业务，拆解业务目标，通过设计专项手段推动用户增长及商业化付费转化",
+      "负责公司整体 UX 体验设计体系搭建与团队管理，统筹用户全链路设计工作，主导交互及视觉方案",
+      "负责团队管理，包括需求拆解、资源分配、方案评审、设计质量把控、绩效考核及人才培养",
+    ],
+  },
+  {
+    period: "2026",
+    company: "AI Exploration",
+    role: "",
+    points: [
+      "使用 ChatGPT、Claude、Cursor、Codex 等 AI 工具探索设计工作流",
+      "将作品集从静态 PDF 升级为 AI-Native 动态网页作品集，总结沉淀 AI 学习使用方法",
+      "内化与精进：阅读、上课、旅行、设计工作室兼职",
+    ],
+  },
+  {
+    period: "2022入职",
+    company: "字节跳动",
+    role: "抖音app体验设计",
+    points: [
+      "主导抖音 App 激励端核心增长体系玩法优化，推动玩法体验升级，带动 LT 的有效增长",
+      "0–1 搭建抖音 App 激励端中台能力系统与设计规范，提升增长效率与多端复用能力",
+      "负责团队相关流程问题发现及治理工作，优化流程为团队提效",
+      "主动积极，期间获得过涨薪激励",
+    ],
+  },
+  {
+    period: "2020入职",
+    company: "阿里巴巴集团",
+    role: "BtoC大型影视产品设计",
+    points: [
+      "主导灯塔专业版 App 大型项目 0–1 改版",
+      "管理 3 人外包团队",
+      "改版取得不错数据收益，工作成果因突出获涨薪",
+    ],
+  },
+  {
+    period: "2019入职",
+    company: "滴滴出行",
+    role: "B端企业级数据产品交互设计",
+    points: [
+      "企业级数据产品体验设计：解读 BI 数据工具的使用场景及用户画像，帮助产品体验提效",
+      "滴滴云官网设计、带教 1 名实习生",
+    ],
+  },
+  {
+    period: "2017入职",
+    company: "易点天下",
+    role: "UI设计",
+    points: [
+      "Dipbit App 区块链项目 UI 设计、Yeahtarger 等项目网站设计",
+      "荣获公司「最佳工作新人」荣誉称号",
+    ],
+  },
+  {
+    period: "2016入职",
+    company: "中兴通讯",
+    role: "UI设计实习",
+    points: ["实习期间负责手机桌面图标、系统设置图标及系统界面设计"],
+  },
+];
+
+const skillTags = [
+  { label: "AI 平台搭建", width: 159, projectIds: ["matrix"] },
+  { label: "增长设计", width: 152, projectIds: ["signin", "treasure"] },
+  { label: "0-1建中台体系", width: 150, projectIds: ["incentive"] },
+  { label: "0-1大项目改版", width: 163, projectIds: ["lighthouse"] },
+  { label: "B端数据后台", width: 141, projectIds: ["data"] },
+  { label: "协作流程优化", width: 159, projectIds: ["governance"] },
+];
+
+const leftProjects = [
+  { id: "matrix", title: "AI搭建提效平台", description: "单包设计由2-3pd降低至1pd，人力成本降低50-60%", width: 494, height: 401, mediaHeight: 277.071, detailLayout: "longform" },
+  { id: "signin", title: "让签到成为自然的习惯", description: "签到连签率流程优化升级，三端 LT30 留存 +1.48pp，人均连签天数 +1.2 天", width: 494, height: 424, mediaHeight: 277.071 },
+  { id: "lighthouse", title: "灯塔专业版 · 从 0 到 1 改版", description: "主导大型项目改版，MAU 从 10 万增长至 16 万，次日回访率升至 75%", width: 494, height: 509, mediaHeight: 362.672 },
+  { id: "governance", title: "让体验问题有序闭环", description: "搭建体验问题治理流程，问题闭环率 +13%，投诉 / 负反馈下降 10%", width: 494.821, height: 476.827, mediaHeight: 331.693 },
+];
+
+const rightProjects = [
+  { id: "incentive", title: "搭建可复用的激励中台", description: "抽象多端激励共性能力，汽水音乐接入开发成本降低 45%，商业化 ARPPU +36.5%", width: 495, height: 512, mediaHeight: 360.871, detailLayout: "longform" },
+  { id: "treasure", title: "从打开宝箱到持续参与", description: "宝箱开启率流程优化升级，三端 LT30 留存 +0.15pp，宝箱总 PV +8.32%", width: 495, height: 427, mediaHeight: 277.071 },
+  { id: "data", title: "数易 · 让中台数据更清晰", description: "优化繁杂数据看板与分析工具的使用效率,帮助产品体验提效", width: 494.821, height: 524.06, mediaHeight: 369.429 },
+];
+
+const allProjects = [...leftProjects, ...rightProjects];
+const projectImageAssets = {
+  signin: "signin-cover-v2.png?v=20260928-2",
+  lighthouse: "lighthouse-final.png",
+  governance: "governance-final-v2.png",
+  incentive: "3c720.png",
+  treasure: "cbef1.png",
+  data: "834ea.png",
+};
+
+const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.webp", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const matrixDetailImages = matrixDetailManifest.pages.map((page) => ({
+  src: matrixDetailImageModules[`./matrix-detail/${page.file}`],
+  width: page.width,
+  height: page.height,
+}));
+
+const lighthouseDetailImageModules = import.meta.glob("./ali-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const lighthouseDetailImages = [
+  1, 5, 6, 7, 3, 4, 2,
+  8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+  29, 30, 28, 27,
+  31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
+].map((number) => lighthouseDetailImageModules[`./ali-detail/ali-detail-${number}.jpg`]);
+
+const didiDetailImageModules = import.meta.glob("./didi-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const didiDetailImages = Array.from(
+  { length: 21 },
+  (_, index) => didiDetailImageModules[`./didi-detail/didi-detail-${index + 1}.jpg`],
+);
+
+const signinDetailImageModules = import.meta.glob("./signin-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const signinDetailImages = Array.from(
+  { length: 18 },
+  (_, index) => signinDetailImageModules[`./signin-detail/signin-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
+
+const treasureDetailImageModules = import.meta.glob("./treasure-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const treasureDetailImages = Array.from(
+  { length: 14 },
+  (_, index) => treasureDetailImageModules[`./treasure-detail/treasure-detail-${String(index + 1).padStart(2, "0")}.jpg`],
+);
+
+const governanceDetailImageModules = import.meta.glob("./governance-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const governanceDetailImages = [65, 66].map(
+  (number) => governanceDetailImageModules[`./governance-detail/byte-page-00${number}.jpg`],
+);
+
+const incentiveDetailImageModules = import.meta.glob("./incentive-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const incentiveDetailImage = (name) => ({
+  src: incentiveDetailImageModules[`./incentive-detail/incentive-detail-${name}.jpg`],
+  width: 2339,
+  height: 2048,
+});
+
+const incentiveDetailImages = [
+  ...Array.from({ length: 16 }, (_, index) => incentiveDetailImage(`refresh-${String(index + 1).padStart(2, "0")}`)),
+];
+
+const aiInterfaceDetailImageModules = import.meta.glob("./ai-interface-detail/*.jpg", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiInterfaceDetailImages = [aiInterfaceDetailImageModules["./ai-interface-detail/monkey-clear.jpg"]];
+
+const aiPortfolioDetailImageModules = import.meta.glob("./ai-portfolio-detail/*.png", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiRestorationDetailImageModules = import.meta.glob("./ai-restoration-detail/*.png", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const aiPortfolioDetailImages = [aiPortfolioDetailImageModules["./ai-portfolio-detail/ai-portfolio-detail.png"]];
+const aiRestorationDetailImages = [aiRestorationDetailImageModules["./ai-restoration-detail/ai-native-restoration-detail.png"]];
+
+const projectDetailGalleries = {
+  matrix: matrixDetailImages,
+  incentive: incentiveDetailImages,
+  signin: signinDetailImages,
+  treasure: treasureDetailImages,
+  lighthouse: lighthouseDetailImages,
+  data: didiDetailImages,
+  governance: governanceDetailImages,
+  "ai-interface": aiInterfaceDetailImages,
+  "ai-portfolio": aiPortfolioDetailImages,
+  "ai-restoration": aiRestorationDetailImages,
+};
+
+function useReveal() {
+  useEffect(() => {
+    const nodes = document.querySelectorAll("[data-reveal]");
+    const reveal = (node) => {
+      node.dataset.revealed = "true";
+    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      nodes.forEach(reveal);
+      return undefined;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: "0px 0px 90px" });
+    nodes.forEach((node) => observer.observe(node));
+    const revealInitialViewport = () => {
+      nodes.forEach((node) => {
+        const bounds = node.getBoundingClientRect();
+        if (bounds.top < window.innerHeight + 90 && bounds.bottom > -90) reveal(node);
+      });
+    };
+    const frame = window.requestAnimationFrame(revealInitialViewport);
+    const fallback = window.setTimeout(revealInitialViewport, 250);
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+}
+
+function useProjectReturnTarget() {
+  useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    const navigationEntry = window.performance.getEntriesByType("navigation")[0];
+    const isReload = navigationEntry?.type === "reload";
+
+    if (window.location.hash === "#contact") {
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById("contact")?.scrollIntoView({ block: "start", behavior: "instant" });
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+
+    if (isReload) {
+      if (window.location.hash) {
+        window.history.replaceState(
+          window.history.state,
+          "",
+          `${window.location.pathname}${window.location.search}`,
+        );
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      const frame = window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+
+    if (!window.location.hash.startsWith("#project-")) {
+      return () => {
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+    const frame = window.requestAnimationFrame(() => {
+      const target = document.querySelector(window.location.hash);
+      if (!target) return;
+      target.scrollIntoView({ block: "center", behavior: "auto" });
+      target.focus({ preventScroll: true });
+    });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
+}
+
+function DraggableSticker({ src, className }) {
+  const drag = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const onPointerDown = (event) => {
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    drag.current = {
+      pointerId: event.pointerId,
+      originX: event.clientX,
+      originY: event.clientY,
+      startX: position.x,
+      startY: position.y,
+    };
+  };
+
+  const onPointerMove = (event) => {
+    if (!drag.current || drag.current.pointerId !== event.pointerId) return;
+    setPosition({
+      x: drag.current.startX + event.clientX - drag.current.originX,
+      y: drag.current.startY + event.clientY - drag.current.originY,
+    });
+  };
+
+  const onPointerUp = (event) => {
+    if (!drag.current || drag.current.pointerId !== event.pointerId) return;
+    drag.current = null;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+  return (
+    <span
+      className={`sticker ${className}`}
+      aria-hidden="true"
+      style={{ transform: `translate3d(${position.x}px, ${position.y}px, 0)` }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
+      <img src={src} alt="" draggable="false" />
+    </span>
+  );
+}
+
+function Header() {
+  const [likes, setLikes] = useState(() => {
+    if (typeof window === "undefined") return 1319;
+    const savedLikes = Number.parseInt(window.localStorage.getItem("magic-meng-likes") ?? "", 10);
+    return Number.isFinite(savedLikes) && savedLikes >= 1319 ? savedLikes : 1319;
+  });
+  const [likeClicks, setLikeClicks] = useState(0);
+  const likeButton = useRef(null);
+
+  useEffect(() => {
+    window.localStorage.setItem("magic-meng-likes", String(likes));
+  }, [likes]);
+
+  const addLike = () => {
+    setLikes((count) => count + 1);
+    setLikeClicks((count) => count + 1);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    likeButton.current?.animate(
+      [
+        { transform: "scale(1)", boxShadow: "inset 0 1px 1px rgba(255,255,255,.1), 0 1px 3px rgba(10,10,10,.8)" },
+        { transform: "scale(1.075)", boxShadow: "inset 0 1px 2px rgba(255,255,255,.16), 0 7px 20px rgba(0,0,0,.48)" },
+        { transform: "scale(.985)" },
+        { transform: "scale(1)" },
+      ],
+      { duration: 340, easing: "cubic-bezier(.2,.85,.25,1)" },
+    );
+  };
+
+  return (
+    <header className="site-header">
+      <a className="brand" href="#top" aria-label="回到顶部">
+        <img src={asset("91667.png")} alt="" />
+        <span>Magic</span>
+      </a>
+      <button
+        ref={likeButton}
+        className="like-button"
+        onClick={addLike}
+        type="button"
+        aria-label={`${likes}人点赞，点击继续点赞`}
+      >
+        <span key={likes} className={`like-count ${likeClicks ? "is-ticking" : ""}`}>{likes}人 点赞</span>
+        <span className="heart-wrap">
+          <img key={likeClicks} className={likeClicks ? "is-popping" : ""} src={asset("01a0f.svg")} alt="" />
+        </span>
+      </button>
+    </header>
+  );
+}
+
+function ProfileCard() {
+  return (
+    <section className="profile-wrap" data-reveal aria-label="个人介绍">
+      <div className="profile-back" />
+      <div className="profile-shell">
+        <div className="profile-card">
+          <div className="profile-copy">
+            <h1>孟珍珍</h1>
+            <div className="rule" />
+            <p className="profile-tagline">让复杂更清晰<br />让体验更自然</p>
+            <div className="profile-bio">
+              <p>
+                Hi，我是 Magic，体验设计师<br />
+                与 AI 探索者，我关注用户体<br />
+                验，更关注设计如何推动业务，<br />
+                我积极探索 AI 辅助设计，将其<br />
+                融入方案探索与重复任务，提<br />
+                升效率，为思考留出更多空间
+              </p>
+            </div>
+          </div>
+          <div className="portrait-wrap">
+            <img src={asset("5f44c.png")} alt="孟珍珍肖像" />
+          </div>
+        </div>
+      </div>
+      <DraggableSticker src={asset("23436.svg")} className="rocket-sticker" />
+    </section>
+  );
+}
+
+function useTallinnTime() {
+  const format = () => new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Europe/Tallinn",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date());
+  const [time, setTime] = useState(format);
+  useEffect(() => {
+    const timer = window.setInterval(() => setTime(format()), 30_000);
+    return () => window.clearInterval(timer);
+  }, []);
+  return time;
+}
+
+function LocationCard() {
+  const time = useTallinnTime();
+  return (
+    <section className="location-wrap" data-reveal aria-label="当前位置">
+      <div className="location-shell">
+        <img className="map-art" src={asset("094ef.svg")} alt="" />
+        <div className="location-frame">
+          <div className="location-line"><span>目前在</span><strong>塔林，东爱尔兰</strong></div>
+          <div className="status-pill">
+            <span><img src={asset("e0634.svg")} alt="" />{time}</span>
+            <span><img src={asset("dd53a.svg")} alt="" />14 °C</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+async function copyToClipboard(value) {
+  try {
+    await navigator.clipboard.writeText(value);
+  } catch {
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.appendChild(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  }
+}
+
+function CopyButton({ icon, value, className = "" }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    await copyToClipboard(value);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1500);
+  };
+  return (
+    <button className={`contact-button ${className} ${copied ? "is-copied" : ""}`.trim()} type="button" onClick={copy}>
+      <span className="contact-button-inner">
+        <img src={asset(icon)} alt="" /><span>{copied ? "已复制" : value}</span>
+      </span>
+    </button>
+  );
+}
+
+function StatsCard() {
+  return (
+    <section className="stats-shell" data-reveal aria-label="职业数据">
+      <DraggableSticker src={asset("d133d.svg")} className="glasses-sticker" />
+      <DraggableSticker src={asset("2b24d.svg")} className="smile-sticker" />
+      <div className="stats-card">
+        <div className="stats-grid">
+          <div><strong>7+</strong><span>设计经验</span></div>
+          <div><strong>3家</strong><span>头部互联网</span></div>
+          <div><strong>亿+</strong><span>用户规模覆盖</span></div>
+          <div><strong>硕士</strong><span>设计学</span></div>
+        </div>
+        <div className="stats-tags">
+          <span>AI产品</span><span>增长玩法</span><span>全链路设计思维</span><span>数据导向</span>
+        </div>
+        <p className="career-summary">
+          先后经历滴滴 · 阿里 · 字节跳动<br />
+          具备大型 ToC / ToB 项目全链路设计经验，横跨 B 端<br />
+          数据平台到 C 端增长激励，最近在负责 AI 出海业务<br />
+          产品设计工作，并管理 6人团队
+        </p>
+        <div className="stats-divider" />
+        <div className="contact-grid">
+          <CopyButton icon="2e5c2.svg" value="15291968365" />
+          <CopyButton icon="02824.svg" value="15291968365@163.com" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionTitle({ children }) {
+  return <h2 className="section-title"><img src={asset("c8464.svg")} alt="" />{children}</h2>;
+}
+
+function ExperienceSection() {
+  const [expanded, setExpanded] = useState(true);
+  return (
+    <section className={`experience-shell ${expanded ? "is-open" : "is-collapsed"}`} data-reveal>
+      <div className="experience-card">
+        <div className="experience-heading">
+          <SectionTitle>工作经历</SectionTitle>
+          <button
+            type="button"
+            aria-expanded={expanded}
+            aria-controls="experience-list"
+            onClick={() => setExpanded((value) => !value)}
+          >
+            {expanded ? "收起" : "展开"}
+          </button>
+        </div>
+        <div className="experience-body" id="experience-list">
+          {experiences.map((item, index) => (
+            <article
+              className="experience-item"
+              data-reveal
+              key={`${item.period}-${item.company}`}
+              style={{ "--reveal-delay": `${(index % 3) * 80}ms` }}
+            >
+              <time>{item.period}</time>
+              <div className="experience-role"><h3>{item.company}</h3>{item.role && <span>{item.role}</span>}</div>
+              <ul>{item.points.map((point) => <li key={point}>{point}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SkillSection({ activeSkill, onSelectSkill }) {
+  return (
+    <section className="skills-section" id="projects" data-reveal>
+      <SectionTitle>项目经验</SectionTitle>
+      <div className="skill-tags">
+        {skillTags.map(({ label, width }) => (
+          <button
+            type="button"
+            key={label}
+            aria-pressed={activeSkill === label}
+            onClick={() => onSelectSkill(label)}
+            style={{ "--tag-width": `${width}px` }}
+          >
+            <span className="skill-tag-inner">
+              <span>{label}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectMedia({ id }) {
+  if (id === "matrix") return (
+    <div className="scene scene-matrix"><img src={matrixDetailImages[0].src} alt="" /></div>
+  );
+  if (id === "signin") return (
+    <div className="scene scene-signin"><img src={asset(projectImageAssets.signin)} alt="" /></div>
+  );
+  if (id === "treasure") return (
+    <div className="scene scene-treasure"><img src={asset(projectImageAssets.treasure)} alt="" /></div>
+  );
+  if (id === "lighthouse") return (
+    <div className="scene scene-lighthouse"><img className="lighthouse-final" src={asset(projectImageAssets.lighthouse)} alt="" /></div>
+  );
+  if (id === "incentive") return (
+    <div className="scene scene-incentive"><img src={asset(projectImageAssets.incentive)} alt="" /></div>
+  );
+  if (id === "data") return (
+    <div className="scene scene-data"><img src={asset(projectImageAssets.data)} alt="" /></div>
+  );
+  if (id === "governance") return (
+    <div className="scene scene-governance"><img src={asset(projectImageAssets.governance)} alt="" /></div>
+  );
+  return null;
+}
+
+function ProjectCard({ project, order }) {
+  const cardRef = useRef(null);
+  const move = (event) => {
+    const node = cardRef.current;
+    if (!node || window.matchMedia("(pointer: coarse)").matches) return;
+    const rect = node.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    node.style.setProperty("--tilt-x", `${y * -2.2}deg`);
+    node.style.setProperty("--tilt-y", `${x * 2.2}deg`);
+    node.style.setProperty("--glow-x", `${(x + 0.5) * 100}%`);
+    node.style.setProperty("--glow-y", `${(y + 0.5) * 100}%`);
+  };
+  const reset = () => {
+    const node = cardRef.current;
+    node?.style.setProperty("--tilt-x", "0deg");
+    node?.style.setProperty("--tilt-y", "0deg");
+  };
+  return (
+    <a
+      ref={cardRef}
+      id={`project-${project.id}`}
+      className={`project-card project-${project.id}`}
+      href={`/projects/${project.id}`}
+      aria-label={`查看${project.title}项目详情`}
+      style={{
+        order,
+        "--card-width": `${project.width}px`,
+        "--card-height": `${project.height}px`,
+        "--media-height": `${project.mediaHeight}px`,
+        "--media-aspect": `${project.width} / ${project.mediaHeight}`,
+      }}
+      onPointerMove={move}
+      onPointerLeave={reset}
+    >
+      <div className="project-media"><ProjectMedia id={project.id} /></div>
+      <div className="project-copy"><h3>{project.title}</h3><p>{project.description}</p></div>
+    </a>
+  );
+}
+
+function ProjectsSection({ activeSkill }) {
+  const selectedSkill = skillTags.find(({ label }) => label === activeSkill);
+
+  if (!selectedSkill) {
+    return (
+      <section className="projects-grid" data-reveal aria-label="项目作品">
+        <div className="project-column project-column-left">{leftProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+        <div className="project-column project-column-right">{rightProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+      </section>
+    );
+  }
+
+  const defaultVisualOrder = [
+    leftProjects[0], rightProjects[0],
+    leftProjects[1], rightProjects[1],
+    leftProjects[2], rightProjects[2],
+    leftProjects[3],
+  ];
+  const priorityIds = new Set(selectedSkill.projectIds);
+  const reorderedProjects = [
+    ...selectedSkill.projectIds.map((id) => allProjects.find((project) => project.id === id)),
+    ...defaultVisualOrder.filter((project) => !priorityIds.has(project.id)),
+  ].filter(Boolean);
+  const reorderedLeft = reorderedProjects.filter((_, index) => index % 2 === 0);
+  const reorderedRight = reorderedProjects.filter((_, index) => index % 2 === 1);
+  const projectOrder = new Map(reorderedProjects.map((project, index) => [project.id, index]));
+
+  return (
+    <section className="projects-grid is-reordered" aria-label={`${activeSkill}相关项目优先展示`} aria-live="polite">
+      <div className="project-column project-column-left">{reorderedLeft.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
+      <div className="project-column project-column-right">{reorderedRight.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
+    </section>
+  );
+}
+
+function ProjectExperience() {
+  const [activeSkill, setActiveSkill] = useState(null);
+  const selectSkill = (label) => {
+    setActiveSkill((current) => (current === label ? null : label));
+  };
+
+  return (
+    <>
+      <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} />
+      <ProjectsSection activeSkill={activeSkill} />
+    </>
+  );
+}
+
+const aiProjects = [
+  { id: "ai-interface", title: "用AI生成高质量APP界面", description: "用清晰的提示词，让AI快速完成从界面构思到高质量视觉方案的生成", image: "1d1d4.png", detailLayout: "longform" },
+  { id: "ai-portfolio", title: "如何用vibe coding做作品集(本站)", description: "用AI工具辅助设计并构建本动态作品集网站，以产品思维替代传统PDF，记录AI协作全流程的方法", image: "2a4fd.png", detailLayout: "longform" },
+  { id: "ai-restoration", title: "如何用AI高质量还原设计稿", description: "通过AI工具辅助前端还原与工作流拆解,沉淀高质量设计稿还原方法", image: "b4998.png", detailLayout: "longform" },
+];
+
+const detailProjects = [...allProjects, ...aiProjects.filter((project) => project.id)];
+
+function AISection() {
+  return (
+    <section className="ai-section" data-reveal>
+      <SectionTitle>AI 学习与探索</SectionTitle>
+      <div
+        className="ai-viewport"
+        role="region"
+        aria-label="AI 学习与探索项目"
+        tabIndex="0"
+      >
+        <div className="ai-grid">
+          {aiProjects.map((item) => {
+            const content = (
+              <>
+                <div className="ai-media"><img src={asset(item.image)} alt="" draggable="false" /></div>
+                <div className="ai-copy"><h3>{item.title}</h3><p>{item.description}</p></div>
+              </>
+            );
+            return item.id ? (
+              <a
+                className="ai-card"
+                id={`project-${item.id}`}
+                href={`/projects/${item.id}`}
+                aria-label={`查看${item.title}项目详情`}
+                key={item.title}
+                draggable="false"
+              >
+                {content}
+              </a>
+            ) : (
+              <article className="ai-card" key={item.title} tabIndex="0">{content}</article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClosingSection() {
+  const [phoneCopied, setPhoneCopied] = useState(false);
+  const copyTimer = useRef(null);
+  useEffect(() => () => clearTimeout(copyTimer.current), []);
+  const copyPhone = async () => {
+    await copyToClipboard("15291968365");
+    setPhoneCopied(true);
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setPhoneCopied(false), 1800);
+  };
+  return (
+    <section className="contact-finale" id="contact" aria-labelledby="closing-title">
+      <div className="finale-shell">
+        <div className="finale-layout">
+          <div className="finale-copy finale-copy--zh">
+            <h2 id="closing-title" className="finale-heading">
+              <span className="finale-heading-lead">AI 时代</span>
+              <strong><span className="finale-highlight">好的体验</span></strong>
+              <span className="finale-heading-tail">比以往任何时候都重要</span>
+            </h2>
+            <p className="finale-intro">期待一起合作🤝，欢迎聊聊～</p>
+            <div className="finale-details">
+              <a className="finale-email finale-contact-art" href="mailto:15291968365@163.com" aria-label="发送邮件至 15291968365@163.com">
+                <img src="/contact-reference/figma-footer-email.png" alt="15291968365@163.com" width="824" height="296" />
+              </a>
+              <button className="finale-phone finale-contact-art" type="button" onClick={copyPhone} aria-label="复制手机号 15291968365">
+                <img src="/contact-reference/figma-footer-phone.png" alt="15291968365" width="702" height="100" style={{visibility: phoneCopied ? "hidden" : "visible"}} />
+                <span className="finale-copy-feedback" aria-live="polite">{phoneCopied ? "号码已复制" : ""}</span>
+              </button>
+            </div>
+          </div>
+          <ContactPhotoWaves />
+        </div>
+        <div className="finale-bottom"><span>Magic Meng © 2026</span></div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectDetailPage({ project }) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+    document.title = `${project.title} — Magic Meng`;
+    return () => { document.title = "Magic Meng — 产品体验设计师"; };
+  }, [project]);
+
+  const detailImages = projectDetailGalleries[project.id];
+
+  return (
+    <div className="project-detail-page">
+      <header className="project-detail-header">
+        <a className="project-detail-back" href={`/#project-${project.id}`} aria-label={`返回${project.title}卡片`}>← 返回项目经验</a>
+        <span>Magic Meng</span>
+      </header>
+      <main className="project-detail-main">
+        <p className="project-detail-kicker">PROJECT EXPERIENCE</p>
+        <h1>{project.title}</h1>
+        <p className="project-detail-description">{project.description}</p>
+        {detailImages ? (
+          <div className={`project-detail-gallery ${project.detailLayout === "longform" ? "project-detail-gallery-longform" : ""} ${project.id === "incentive" ? "project-detail-gallery-incentive" : ""}`} aria-label={`${project.title}项目完整方案`}>
+            {detailImages.map((image, index) => {
+              const imageSource = typeof image === "string" ? image : image.src;
+              const imageWidth = typeof image === "string" ? undefined : image.width;
+              const imageHeight = typeof image === "string" ? undefined : image.height;
+              return (
+                <figure className="project-detail-visual" key={imageSource}>
+                  <img
+                    src={imageSource}
+                    alt={`${project.title}项目方案第${index + 1}页`}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    width={imageWidth}
+                    height={imageHeight}
+                  />
+                </figure>
+              );
+            })}
+          </div>
+        ) : (
+          <figure className="project-detail-visual">
+            <img src={asset(projectImageAssets[project.id])} alt={`${project.title}项目主视觉`} />
+          </figure>
+        )}
+      </main>
+    </div>
+  );
+}
+
+export function App() {
+  useReveal();
+  useProjectReturnTarget();
+  const detailMatch = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/);
+  const detailProject = detailMatch ? detailProjects.find((project) => project.id === detailMatch[1]) : null;
+  if (detailProject) return <ProjectDetailPage project={detailProject} />;
+
+  return (
+    <div id="top" className="site-root home-page">
+      <HeroAtmosphere />
+      <Header />
+      <main>
+        <div className="resume-shell hero-layout">
+          <div className="hero-left"><ProfileCard /></div>
+          <StatsCard />
+        </div>
+        <div className="resume-shell"><ExperienceSection /></div>
+        <div className="resume-shell"><ProjectExperience /></div>
+        <div className="resume-shell"><AISection /></div>
+        <ClosingSection />
+      </main>
+    </div>
+  );
+}

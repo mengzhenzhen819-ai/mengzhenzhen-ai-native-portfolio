@@ -1,0 +1,212 @@
+[
+  {
+    "name": "city-street",
+    "nodeId": "227:68",
+    "originalDimensions": [
+      1072,
+      1232
+    ],
+    "webDimensions": [
+      668,
+      768
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 109114
+  },
+  {
+    "name": "hyrox",
+    "nodeId": "227:71",
+    "originalDimensions": [
+      1296,
+      1222
+    ],
+    "webDimensions": [
+      768,
+      724
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 137180
+  },
+  {
+    "name": "balloon",
+    "nodeId": "227:74",
+    "originalDimensions": [
+      1936,
+      1412
+    ],
+    "webDimensions": [
+      768,
+      560
+    ],
+    "objectPosition": "0% 50%",
+    "bytes": 45360
+  },
+  {
+    "name": "dog-park",
+    "nodeId": "227:77",
+    "originalDimensions": [
+      1054,
+      1434
+    ],
+    "webDimensions": [
+      564,
+      768
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 122948
+  },
+  {
+    "name": "paragliding",
+    "nodeId": "227:80",
+    "originalDimensions": [
+      1996,
+      1298
+    ],
+    "webDimensions": [
+      768,
+      499
+    ],
+    "objectPosition": "0% 50%",
+    "bytes": 92682
+  },
+  {
+    "name": "snorkeling",
+    "nodeId": "227:83",
+    "originalDimensions": [
+      2072,
+      1560
+    ],
+    "webDimensions": [
+      768,
+      578
+    ],
+    "objectPosition": "20% 50%",
+    "bytes": 71768
+  },
+  {
+    "name": "beach",
+    "nodeId": "227:86",
+    "originalDimensions": [
+      1824,
+      1296
+    ],
+    "webDimensions": [
+      768,
+      546
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 77566
+  },
+  {
+    "name": "cafe",
+    "nodeId": "227:89",
+    "originalDimensions": [
+      988,
+      1254
+    ],
+    "webDimensions": [
+      605,
+      768
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 97316
+  },
+  {
+    "name": "temple",
+    "nodeId": "227:92",
+    "originalDimensions": [
+      2040,
+      1396
+    ],
+    "webDimensions": [
+      768,
+      526
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 134922
+  },
+  {
+    "name": "deer",
+    "nodeId": "227:95",
+    "originalDimensions": [
+      1022,
+      1250
+    ],
+    "webDimensions": [
+      628,
+      768
+    ],
+    "objectPosition": "50% 0%",
+    "bytes": 56456
+  },
+  {
+    "name": "photo-11",
+    "nodeId": "227:98",
+    "originalDimensions": [
+      1972,
+      1452
+    ],
+    "webDimensions": [
+      768,
+      565
+    ],
+    "objectPosition": "0% 50%",
+    "bytes": 83274
+  },
+  {
+    "name": "photo-12",
+    "nodeId": "227:101",
+    "originalDimensions": [
+      2072,
+      1310
+    ],
+    "webDimensions": [
+      768,
+      486
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 137726
+  },
+  {
+    "name": "photo-13",
+    "nodeId": "227:104",
+    "originalDimensions": [
+      1396,
+      1110
+    ],
+    "webDimensions": [
+      768,
+      611
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 50148
+  },
+  {
+    "name": "photo-14",
+    "nodeId": "227:107",
+    "originalDimensions": [
+      1204,
+      1262
+    ],
+    "webDimensions": [
+      733,
+      768
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 137066
+  },
+  {
+    "name": "photo-15",
+    "nodeId": "227:110",
+    "originalDimensions": [
+      1178,
+      1270
+    ],
+    "webDimensions": [
+      712,
+      768
+    ],
+    "objectPosition": "50% 50%",
+    "bytes": 60002
+  }
+]
