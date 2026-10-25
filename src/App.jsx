@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import matrixDetailManifest from "./matrix-detail/manifest.json";
 
 const ASSET = "/figma-resume";
 const asset = (name) => `${ASSET}/${name}`;
@@ -110,13 +111,10 @@ const matrixDetailImageModules = import.meta.glob("./matrix-detail/*.webp", {
   query: "?url",
 });
 
-const matrixDetailImages = [
-  1080, 1246, 1155, 1242, 1762, 1155, 1181, 1181,
-  1181, 1181, 1181, 1181, 1527, 1821, 1129, 1112,
-].map((height, index) => ({
-  src: matrixDetailImageModules[`./matrix-detail/matrix-detail-${String(index + 1).padStart(2, "0")}.webp`],
-  width: 3840,
-  height: height * 2,
+const matrixDetailImages = matrixDetailManifest.pages.map((page) => ({
+  src: matrixDetailImageModules[`./matrix-detail/${page.file}`],
+  width: page.width,
+  height: page.height,
 }));
 
 const lighthouseDetailImageModules = import.meta.glob("./ali-detail/*.jpg", {
