@@ -3,6 +3,11 @@ import { useEffect, useRef, useState } from "react";
 const TOP = ["city-street", "photo-12", "hyrox", "balloon", "dog-park", "photo-13", "paragliding", "photo-15"];
 const BOTTOM = ["snorkeling", "photo-11", "beach", "cafe", "temple", "photo-14", "deer"];
 const PHOTO_POSITIONS = {balloon: "0% 50%", paragliding: "0% 50%", snorkeling: "20% 50%", deer: "50% 0%", "photo-11": "0% 50%"};
+// Keep the source images intact; tighten only these two square gallery views.
+const PHOTO_FRAMING = {
+  "city-street": { transform: "scale(1.35)", transformOrigin: "50% 35%" },
+  hyrox: { transform: "scale(1.65)", transformOrigin: "50% 48%" },
+};
 const ROWS = [TOP, BOTTOM];
 
 export default function ContactPhotoWaves() {
@@ -138,7 +143,7 @@ export default function ContactPhotoWaves() {
       <div className="community-photo-field" aria-hidden="true">
         {ROWS.flatMap((row, rowIndex) => Array.from({length: rowCounts[rowIndex]}, (_, index) => (
           <div className="community-photo" key={`${rowIndex}-${index}`} onPointerEnter={enterPhoto} onPointerLeave={leavePhoto}>
-            <img src={`/contact-personal/${row[index % row.length]}.webp`} style={{objectPosition: PHOTO_POSITIONS[row[index % row.length]] ?? "50% 50%"}} alt="" loading="eager" decoding="async" draggable="false" width="128" height="128" />
+            <img src={`/contact-personal/${row[index % row.length]}.webp`} style={{objectPosition: PHOTO_POSITIONS[row[index % row.length]] ?? "50% 50%", ...PHOTO_FRAMING[row[index % row.length]]}} alt="" loading="eager" decoding="async" draggable="false" width="128" height="128" />
             <span className="community-glare" />
           </div>
         )))}

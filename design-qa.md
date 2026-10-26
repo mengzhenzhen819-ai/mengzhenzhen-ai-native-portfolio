@@ -252,6 +252,32 @@ final result: passed
 - Captures: qa/whole-page-particles-hero.jpg, qa/whole-page-particles-middle.jpg, qa/whole-page-particles-footer.jpg. Local preview only.
 
 
-## Approved GitHub source synchronization — 2026-10-25
-- Copied approved homepage runtime sources, 15 personal WebPs, contact artwork/fonts, photo manifest, and exact hero-only rollback checkpoint into the canonical source repository. Runtime source/asset hashes match the confirmed local preview.
-- Production build passed (186 modules); Sites routing/packaging checks passed 4/4; staged diff whitespace check passed. Existing untracked local restoration note left untouched. No separate hosting deployment command executed.
+## Closing Figma refresh and two photo crops — 2026-10-26
+- Read high-fidelity design context and screenshot for sEfVYSUpkr3Ss0rU2jSnZA / 227:121. Updated only closing left layout and city-street/hyrox framing. Latest contact rasters and selection dot were downloaded from provided Figma asset URLs and stored locally.
+- Desktop 1496px: measured lead x=243.361, 28px/42px lines, strong 346.641×75px at 55.438px. Email 294.938×42.047 and phone 293.820×41.852. Source offsets agree within rounding. Subject transforms 1.35 and 1.65 confirmed; originals remain unchanged.
+- Production build passed. Mobile 390px: no horizontal overflow; heading fits, email/phone assets loaded, copy bottom leaves 16px before photo gallery. Existing right wave/particle code unchanged except the two image styles.
+- Proof: qa/footer-figma-oct26-desktop.jpg. Local preview only.
+
+
+## Same-tab project navigation — 2026-10-26
+- Explicit target="_self" added to ordinary project cards, AI cards and detail return links. Existing href routes and return anchors preserved.
+- Production build passed. Browser verified matrix detail, its return link, AI interface detail and its return link all use tab 22; tab count remained 20 throughout. All 10 homepage project anchors use _self. AI return card visible at y=138px.
+- Evidence: qa/project-same-tab-navigation.jpg. Local preview updated.
+
+
+## Preview service recovery — 2026-10-26
+- Reported project pages unavailable. Confirmed no process accepting connections at 127.0.0.1:4186; existing production build and routes intact.
+- Restarted Vite production preview on 127.0.0.1:4186 with strictPort. Home and all 10 detail routes return HTTP 200; entry JS/CSS/favicon assets also checked. No application code changes required.
+- Browser inspection blocked by browser URL security policy; did not bypass or attempt another browser surface. Verification in this recovery is limited to local server route/asset health.
+
+
+## Homepage opens at hero — 2026-10-26
+- Initial homepage navigation and reload now clear stale project/contact hashes and jump instantly to top. Detail URLs remain valid. Return links use a one-use marker; browser Back uses the clicked project’s history state.
+- Actual hook logic exercised in an isolated JS harness: 11 scenarios passed, including fresh root/project/contact hashes, reload with stale return state, explicit detail return, browser Back and Strict Mode effect replay. Production build and 4 routing/packaging tests passed.
+- Existing preview service serves the updated JS bundle on 4186. Use bare http://127.0.0.1:4186/ as the user-facing homepage entry. Browser UI verification unavailable after prior browser policy rejection; no workaround attempted.
+
+
+## Canonical source sync approved — 2026-10-26
+- Latest runtime source files and three new Figma assets synchronized byte-for-byte from the approved local preview. Gallery framing manifest updated, original particle checkpoint preserved.
+- Canonical production build passed and emits the same entry JS/CSS as the preview. Sites routing/packaging tests passed 4/4; diff whitespace check passed.
+- User requested GitHub push. Local restoration note is maintained separately and excluded from the source commit.

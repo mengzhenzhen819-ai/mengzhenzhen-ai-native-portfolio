@@ -78,3 +78,25 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - User approved the whole-page yellow particle design and asked to synchronize the confirmed preview to the canonical source folder and push to GitHub. This supersedes local-preview-only restrictions for this approved version and its source/assets.
 - Preserve the approved split closing layout, 15 personal photos, contact artwork, smaller Magic header brand and whole-page single-canvas particles. Keep the hero-only rollback checkpoint.
 - No separate hosting/deployment action was requested; GitHub-connected hosting may deploy automatically.
+
+## Latest closing copy and photo framing — 2026-10-26
+- Left closing copy now follows refreshed Figma group 227:121 (nodes 227:126/128/129/132/125). White 28px lines: “AI 时代  好的体验” and “比以往任何时候都重要”; highlighted 55.438px “期待一起合作” in a 346.648×62.235 #FFC400 rectangle. Remove the old invitation paragraph.
+- Desktop copy begins at x=243.361 at 1496px, and 145.667px below the unchanged gallery top. Keep the latest Figma email/phone slots (294.939×42.049 and 293.827×41.856). On stacked layouts use a 20px copy offset so it does not overlap the gallery.
+- Enlarge only gallery subjects city-street (1.35×, transform-origin 50% 35%) and hyrox (1.65×, origin 50% 48%). Preserve source photos, other crops and photo-card dimensions. Keep right wave motion, fades, hover and full-page particles unchanged.
+- This follow-up is a local review revision; the last GitHub source version remains 4e2e864 until another source synchronization is requested.
+
+- Latest closing position refinement: move the entire desktop left copy/contact group up 65.667px by changing its top offset from 145.667px to 80px. Preserve internal spacing, mobile offset and the right gallery position.
+
+- Latest desktop closing alignment: move the complete left copy/contact group a further 12px left (translateX -33.412px, x=231.361px at 1496px viewport). Preserve its 80px top offset and the right gallery geometry.
+
+- Closing copy alignment refined a further 12px left: desktop translateX is now -45.412px (x=219.361px at 1496px). Keep vertical position and right gallery unchanged.
+
+- Project navigation must stay in the current browser tab. All ordinary project cards, AI exploration cards and detail return links explicitly use target="_self"; preserve normal link URLs and return-to-card anchors.
+
+## Homepage entry behavior — 2026-10-26
+- Fresh homepage visits and reloads start at the hero, including previously copied #project-* or #contact URLs. Remove stale entry hashes without smooth scrolling.
+- Only explicit detail return links and browser Back from a clicked project restore its card. Mark project origin in history state and use a one-use session marker for detail return links. Preserve _self navigation.
+
+## Approved latest source synchronization — 2026-10-26
+- User approved updating the canonical local source folder and pushing these follow-ups to GitHub. This supersedes the latest local-review-only restrictions for the refreshed left closing copy, its upward/leftward alignment, the two enlarged photo crops, same-tab project links and hero-first homepage entry behavior.
+- Keep the original hero-only rollback checkpoint and all unrelated project galleries unchanged.

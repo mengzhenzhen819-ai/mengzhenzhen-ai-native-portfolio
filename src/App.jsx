@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import matrixDetailManifest from "./matrix-detail/manifest.json";
 import HeroAtmosphere from "./components/HeroAtmosphere.jsx";
 import ContactPhotoWaves from "./components/ContactPhotoWaves.jsx";
@@ -262,52 +262,62 @@ function useReveal() {
   }, []);
 }
 
+const PROJECT_RETURN_KEY = "portfolio-project-return";
+
+function isPlainLinkClick(event) {
+  return !event.defaultPrevented && event.button === 0 &&
+    !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+}
+
+function rememberProjectOrigin(event) {
+  if (!isPlainLinkClick(event)) return;
+  // Only browser Back should restore this card; a fresh visit starts at the hero.
+  window.history.replaceState({
+    ...window.history.state,
+    portfolioProjectReturn: `#${event.currentTarget.id}`,
+  }, "", window.location.href);
+}
+
+function rememberProjectReturn(event) {
+  if (!isPlainLinkClick(event)) return;
+  try {
+    sessionStorage.setItem(PROJECT_RETURN_KEY, event.currentTarget.hash);
+  } catch { /* Storage may be unavailable; the homepage still opens normally. */ }
+}
+
 function useProjectReturnTarget() {
-  useEffect(() => {
+  const destination = useRef(undefined);
+  useLayoutEffect(() => {
+    if (window.location.pathname !== "/") return undefined;
     const previousScrollRestoration = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
-    const navigationEntry = window.performance.getEntriesByType("navigation")[0];
-    const isReload = navigationEntry?.type === "reload";
-
-    if (window.location.hash === "#contact") {
-      const frame = window.requestAnimationFrame(() => {
-        document.getElementById("contact")?.scrollIntoView({ block: "start", behavior: "instant" });
-      });
-      return () => {
-        window.cancelAnimationFrame(frame);
-        window.history.scrollRestoration = previousScrollRestoration;
-      };
+    if (destination.current === undefined) {
+      const navigationType = window.performance.getEntriesByType("navigation")[0]?.type;
+      let explicitReturn = null;
+      try {
+        explicitReturn = sessionStorage.getItem(PROJECT_RETURN_KEY);
+        sessionStorage.removeItem(PROJECT_RETURN_KEY);
+      } catch { /* Fresh visits need no storage. */ }
+      const fromBack = navigationType === "back_forward" ? window.history.state?.portfolioProjectReturn : null;
+      const fromReturnLink = explicitReturn === window.location.hash ? explicitReturn : null;
+      const candidate = navigationType === "reload" ? null : fromBack || fromReturnLink;
+      destination.current = candidate?.startsWith("#project-") ? candidate : null;
+      const { portfolioProjectReturn, ...state } = window.history.state || {};
+      window.history.replaceState(state, "", destination.current || !window.location.hash
+        ? window.location.href
+        : `${window.location.pathname}${window.location.search}`);
     }
-
-    if (isReload) {
-      if (window.location.hash) {
-        window.history.replaceState(
-          window.history.state,
-          "",
-          `${window.location.pathname}${window.location.search}`,
-        );
+    const restorePosition = () => {
+      const target = destination.current && document.getElementById(destination.current.slice(1));
+      if (target) {
+        target.scrollIntoView({ block: "center", behavior: "instant" });
+        target.focus({ preventScroll: true });
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       }
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      const frame = window.requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      });
-      return () => {
-        window.cancelAnimationFrame(frame);
-        window.history.scrollRestoration = previousScrollRestoration;
-      };
-    }
-
-    if (!window.location.hash.startsWith("#project-")) {
-      return () => {
-        window.history.scrollRestoration = previousScrollRestoration;
-      };
-    }
-    const frame = window.requestAnimationFrame(() => {
-      const target = document.querySelector(window.location.hash);
-      if (!target) return;
-      target.scrollIntoView({ block: "center", behavior: "auto" });
-      target.focus({ preventScroll: true });
-    });
+    };
+    restorePosition();
+    const frame = window.requestAnimationFrame(restorePosition);
     return () => {
       window.cancelAnimationFrame(frame);
       window.history.scrollRestoration = previousScrollRestoration;
@@ -647,6 +657,8 @@ function ProjectCard({ project, order }) {
       id={`project-${project.id}`}
       className={`project-card project-${project.id}`}
       href={`/projects/${project.id}`}
+      target="_self"
+      onClick={rememberProjectOrigin}
       aria-label={`查看${project.title}项目详情`}
       style={{
         order,
@@ -744,6 +756,8 @@ function AISection() {
                 className="ai-card"
                 id={`project-${item.id}`}
                 href={`/projects/${item.id}`}
+                target="_self"
+                onClick={rememberProjectOrigin}
                 aria-label={`查看${item.title}项目详情`}
                 key={item.title}
                 draggable="false"
@@ -776,17 +790,16 @@ function ClosingSection() {
         <div className="finale-layout">
           <div className="finale-copy finale-copy--zh">
             <h2 id="closing-title" className="finale-heading">
-              <span className="finale-heading-lead">AI 时代</span>
-              <strong><span className="finale-highlight">好的体验</span></strong>
+              <span className="finale-heading-lead">AI 时代  好的体验</span>
               <span className="finale-heading-tail">比以往任何时候都重要</span>
+              <strong><span className="finale-highlight">期待一起合作</span></strong>
             </h2>
-            <p className="finale-intro">期待一起合作🤝，欢迎聊聊～</p>
             <div className="finale-details">
               <a className="finale-email finale-contact-art" href="mailto:15291968365@163.com" aria-label="发送邮件至 15291968365@163.com">
-                <img src="/contact-reference/figma-footer-email.png" alt="15291968365@163.com" width="824" height="296" />
+                <img src="/contact-reference/figma-footer-email-v2.png" alt="15291968365@163.com" width="824" height="296" />
               </a>
               <button className="finale-phone finale-contact-art" type="button" onClick={copyPhone} aria-label="复制手机号 15291968365">
-                <img src="/contact-reference/figma-footer-phone.png" alt="15291968365" width="702" height="100" style={{visibility: phoneCopied ? "hidden" : "visible"}} />
+                <img src="/contact-reference/figma-footer-phone-v2.png" alt="15291968365" width="702" height="100" style={{visibility: phoneCopied ? "hidden" : "visible"}} />
                 <span className="finale-copy-feedback" aria-live="polite">{phoneCopied ? "号码已复制" : ""}</span>
               </button>
             </div>
@@ -811,7 +824,7 @@ function ProjectDetailPage({ project }) {
   return (
     <div className="project-detail-page">
       <header className="project-detail-header">
-        <a className="project-detail-back" href={`/#project-${project.id}`} aria-label={`返回${project.title}卡片`}>← 返回项目经验</a>
+        <a className="project-detail-back" href={`/#project-${project.id}`} target="_self" onClick={rememberProjectReturn} aria-label={`返回${project.title}卡片`}>← 返回项目经验</a>
         <span>Magic Meng</span>
       </header>
       <main className="project-detail-main">

@@ -1039,19 +1039,31 @@ footer {
   .community-photo { transition: none; }
 }
 
-/* Figma 1:8 closing copy: nodes 222:51–55, 222:60 and 222:63. */
-.finale-copy--zh { --finale-contact-scale: .85; position: relative; top: 20px; color: #fff; }
-.finale-copy--zh .finale-heading-lead {
+/* Latest Figma 1:8 left closing copy: 227:126/128/129/132/125.
+   Right-side photo layout, transport and particles retain their approved geometry. */
+.finale-copy--zh {
+  --finale-contact-scale: 1;
+  position: relative;
+  top: 80px;
+  color: #fff;
+}
+.finale-copy--zh .finale-heading-lead,
+.finale-copy--zh .finale-heading-tail {
+  display: block;
   font-size: 28px;
   font-weight: 700;
   line-height: 42px;
   letter-spacing: -.6px;
+  white-space: pre;
 }
+.finale-copy--zh .finale-heading-tail { margin-top: -4.138px; }
 .finale-copy--zh .finale-heading strong {
-  width: 236.623px;
-  height: 62.235px;
-  margin-top: 5.635px;
-  margin-left: -1px;
+  display: flex;
+  align-items: center;
+  width: 346.648px;
+  max-width: calc(100% - 8px);
+  height: 75px;
+  margin: 12.4px 0 0 1.854px;
   font-size: 55.438px;
   font-weight: 700;
   line-height: 75px;
@@ -1062,7 +1074,7 @@ footer {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 62.235px;
   margin: 0;
   padding: 0;
   line-height: 75px;
@@ -1071,35 +1083,32 @@ footer {
   -webkit-text-stroke: .3px currentColor;
 }
 .finale-copy--zh .finale-highlight::before,
-.finale-copy--zh .finale-highlight::after { width: 6.779px; height: 6.779px; background: #ffc400; }
-.finale-copy--zh .finale-highlight::before { top: -8.563px; left: -3.925px; }
-.finale-copy--zh .finale-highlight::after { bottom: -9.892px; right: -3.244px; }
-.finale-copy--zh .finale-heading-tail {
-  margin-top: 16.992px;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 42px;
-  letter-spacing: -.6px;
+.finale-copy--zh .finale-highlight::after {
+  width: 6.779px;
+  height: 6.779px;
+  border-radius: 0;
+  background: url("/contact-reference/figma-selection-dot.svg") center / contain no-repeat;
 }
-.finale-copy--zh .finale-intro {
-  margin-top: 8.782px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: -.6px;
-}
-.finale-copy--zh .finale-details { margin-top: 65.862px; }
+.finale-copy--zh .finale-highlight::before { top: -7.779px; left: -7.779px; }
+.finale-copy--zh .finale-highlight::after { bottom: -7.779px; right: -7.39px; }
+.finale-copy--zh .finale-details { margin-top: 68.243px; }
 .finale-contact-art { position: relative; display: block; padding: 0; border: 0; border-radius: 0; background: #000; overflow: hidden; }
-.finale-copy--zh .finale-email { width: calc(342.861px * var(--finale-contact-scale)); max-width: none; height: calc(48.881px * var(--finale-contact-scale)); margin-top: 0; margin-left: calc(-28.022px * var(--finale-contact-scale)); }
+.finale-copy--zh .finale-email { width: 294.939px; max-width: none; height: 42.049px; margin-top: 0; margin-left: -28.022px; }
 .finale-email.finale-contact-art img { display: block; width: 100%; height: auto; }
-.finale-copy--zh .finale-phone { width: calc(341.568px * var(--finale-contact-scale)); height: calc(48.656px * var(--finale-contact-scale)); min-height: 0; margin-top: calc(-.818px * var(--finale-contact-scale)); margin-left: calc(-22.049px * var(--finale-contact-scale)); }
+.finale-copy--zh .finale-phone { width: 293.827px; height: 41.856px; min-height: 0; margin-top: -.987px; margin-left: -22.049px; }
 .finale-phone.finale-contact-art img { display: block; width: 100%; height: 100%; filter: none; object-fit: cover; }
-.finale-copy-feedback { position: absolute; left: calc(22px * var(--finale-contact-scale)); top: 0; display: flex; align-items: center; height: 100%; font-size: calc(24px * var(--finale-contact-scale)); font-weight: 800; }
+.finale-copy-feedback { position: absolute; left: 22px; top: 0; display: flex; align-items: center; height: 100%; font-size: 21px; font-weight: 800; }
 @media (min-width: 861px) {
-  .finale-copy { transform: translateX(-4.242px); }
+  .finale-copy { transform: translateX(-45.412px); }
 }
-@media (max-width: 720px) {
-  .finale-copy--zh .finale-heading-lead { font-size: 26px; }
-  .finale-copy--zh .finale-heading-tail { font-size: 25px; }
+@media (min-width: 861px) and (max-width: 1100px) {
+  .finale-copy--zh .finale-heading strong { font-size: 48px; }
+}
+@media (max-width: 860px) {
+  .finale-copy--zh { top: 20px; }
+}
+@media (max-width: 380px) {
+  .finale-copy--zh .finale-heading strong { font-size: 49px; }
+  .finale-copy--zh .finale-heading-lead,
+  .finale-copy--zh .finale-heading-tail { font-size: 26px; }
 }
