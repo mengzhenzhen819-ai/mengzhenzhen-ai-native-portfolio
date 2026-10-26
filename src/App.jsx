@@ -1,3 +1,4 @@
+import { useProjectPresentation } from "./components/useProjectPresentation.js";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import matrixDetailManifest from "./matrix-detail/manifest.json";
 import HeroAtmosphere from "./components/HeroAtmosphere.jsx";
@@ -652,6 +653,7 @@ function ProjectCard({ project, order }) {
     node?.style.setProperty("--tilt-y", "0deg");
   };
   return (
+    <div className={`project-presentation-slot project-${project.id}`} style={{order}}>
     <a
       ref={cardRef}
       id={`project-${project.id}`}
@@ -673,15 +675,18 @@ function ProjectCard({ project, order }) {
       <div className="project-media"><ProjectMedia id={project.id} /></div>
       <div className="project-copy"><h3>{project.title}</h3><p>{project.description}</p></div>
     </a>
+    </div>
   );
 }
 
-function ProjectsSection({ activeSkill }) {
+function ProjectsSection({ activeSkill, trackRef }) {
+  const sectionRef = useRef(null);
+  useProjectPresentation(sectionRef, trackRef, activeSkill);
   const selectedSkill = skillTags.find(({ label }) => label === activeSkill);
 
   if (!selectedSkill) {
     return (
-      <section className="projects-grid" data-reveal aria-label="项目作品">
+      <section ref={sectionRef} className="projects-grid projects-grid--presentation" data-reveal aria-label="项目作品">
         <div className="project-column project-column-left">{leftProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
         <div className="project-column project-column-right">{rightProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>
       </section>
@@ -704,7 +709,7 @@ function ProjectsSection({ activeSkill }) {
   const projectOrder = new Map(reorderedProjects.map((project, index) => [project.id, index]));
 
   return (
-    <section className="projects-grid is-reordered" aria-label={`${activeSkill}相关项目优先展示`} aria-live="polite">
+    <section ref={sectionRef} className="projects-grid projects-grid--presentation is-reordered" aria-label={`${activeSkill}相关项目优先展示`} aria-live="polite">
       <div className="project-column project-column-left">{reorderedLeft.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
       <div className="project-column project-column-right">{reorderedRight.map((project) => <ProjectCard key={`${activeSkill}-${project.id}`} project={project} order={projectOrder.get(project.id)} />)}</div>
     </section>
@@ -712,16 +717,19 @@ function ProjectsSection({ activeSkill }) {
 }
 
 function ProjectExperience() {
+  const trackRef = useRef(null);
   const [activeSkill, setActiveSkill] = useState(null);
   const selectSkill = (label) => {
     setActiveSkill((current) => (current === label ? null : label));
   };
 
   return (
-    <>
-      <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} />
-      <ProjectsSection activeSkill={activeSkill} />
-    </>
+    <div ref={trackRef} className="project-presentation-track">
+      <div className="project-presentation-panel">
+        <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} />
+        <ProjectsSection activeSkill={activeSkill} trackRef={trackRef} />
+      </div>
+    </div>
   );
 }
 

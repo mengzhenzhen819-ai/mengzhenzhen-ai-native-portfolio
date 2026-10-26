@@ -114,3 +114,10 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 
 ## Updated matrix cover — 2026-10-26
 - Replace the shared homepage/detail cover with the latest Figma frame 40005208:339868, headed “搭建矩阵包 / AI生产工具”. Keep the 2× 3840×2160 export and lossless WebP; preserve all other gallery slides.
+
+## Approved project-experience motion publication — 2026-10-26
+- User authorized source synchronization and publication of only the approved project-experience presentation. Work experience remains its original implementation; do not include the separate career-archive study.
+- Seven real project anchors begin in a horizontally centered stack, sharing a common centerline and mild -7° to +7° rotations. Size grows from left to right: desktop .58→.79; mobile .54→.72.
+- Actual page scrolling unfolds the stack into the exact original project grid over85vh. Title, category buttons and cards share the sticky presentation panel, preserving43px desktop /24px mobile gap before normal browsing resumes.
+- Invisible slots retain final original card dimensions; opening frames normalize height and use opaque dark surfaces to prevent overlapping text bleed. Preserve all original images, text, filters, hover behavior and same-tab details. Explicit detail returns show the completed grid. Fresh homepage/reloads still start at the hero.
+- Production code excludes review auto-positioning, preview-query behavior and keyboard reset shortcuts. Reduced motion restores original static cards and removes the sticky scroll interval.
