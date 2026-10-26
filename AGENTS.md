@@ -111,3 +111,6 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 
 ## Approved capability-tag publication — 2026-10-26
 - User approved synchronizing source and publishing the selected tag design. Primary AI产品 uses exact #FFC400 text/dot/outline, with a 0.5px yellow border and matching translucent fill; remaining tags stay subtle charcoal/gray. This supersedes the local-review-only limitation for this change.
+
+## Updated matrix cover — 2026-10-26
+- Replace the shared homepage/detail cover with the latest Figma frame 40005208:339868, headed “搭建矩阵包 / AI生产工具”. Keep the 2× 3840×2160 export and lossless WebP; preserve all other gallery slides.
