@@ -528,7 +528,7 @@ function StatsCard() {
           <div><strong>硕士</strong><span>设计学</span></div>
         </div>
         <div className="stats-tags">
-          <span>AI产品</span><span>增长玩法</span><span>全链路设计思维</span><span>数据导向</span>
+          <span className="stats-tag--primary">AI产品</span><span>增长玩法</span><span>全链路设计思维</span><span>数据导向</span>
         </div>
         <p className="career-summary">
           先后经历滴滴 · 阿里 · 字节跳动<br />

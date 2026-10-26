@@ -276,8 +276,36 @@ final result: passed
 - Actual hook logic exercised in an isolated JS harness: 11 scenarios passed, including fresh root/project/contact hashes, reload with stale return state, explicit detail return, browser Back and Strict Mode effect replay. Production build and 4 routing/packaging tests passed.
 - Existing preview service serves the updated JS bundle on 4186. Use bare http://127.0.0.1:4186/ as the user-facing homepage entry. Browser UI verification unavailable after prior browser policy rejection; no workaround attempted.
 
+## Selected expertise tags — option 1 — 2026-10-26
 
-## Canonical source sync approved — 2026-10-26
-- Latest runtime source files and three new Figma assets synchronized byte-for-byte from the approved local preview. Gallery framing manifest updated, original particle checkpoint preserved.
-- Canonical production build passed and emits the same entry JS/CSS as the preview. Sites routing/packaging tests passed 4/4; diff whitespace check passed.
-- User requested GitHub push. Local restoration note is maintained separately and excluded from the source commit.
+Source visual truth: `qa/tags-option-one-reference.png` (first displayed generation, exec-05ff8201-d208-41ac-8b72-773542153d3c).
+Implementation: local homepage at http://127.0.0.1:4186/; `qa/tags-option-one-desktop.png`, `qa/tags-option-one-detail.png`, `qa/tags-option-one-mobile.png`.
+
+Scope: only the four stats-card expertise descriptors. Existing portrait, copy, metric layout, contact controls, particles and other homepage regions intentionally retain their established source implementation. Tags remain static expertise text, with no invented tab or filter behavior.
+
+Viewport and normalization: source image 1945×809 pixels; desktop implementation 1496×850 CSS/pixels at DPR 1. The two hero content crops were aspect-preservingly normalized to a common 1002px width in `qa/tags-option-one-comparison.png`. Focused tag crops are shown together in `qa/tags-option-one-detail-comparison.png`. Surrounding generated portrait/copy differences are out of scope; the actual user assets are preserved.
+
+Comparison history:
+- Initial review: [P2] primary amber emphasis weaker than selected visual. Increased primary border alpha from .56 to .70 and fill from .075 to .11.
+- Rebuilt and recaptured the desktop/full and focused comparison images after that change. The primary now reads as the clear yellow emphasis; secondary tags remain quiet charcoal outlines.
+
+Required fidelity surfaces:
+- Fonts/typography: existing Satoshi/PingFang stack, 14px/24px medium desktop; 12px compact mobile. Exact four labels retained and fully visible.
+- Spacing/layout: desktop tag height 32px, 10px gaps, natural text widths; row left aligns with career paragraph, 19.234px clear gap below tags. At 390px and 320px, tags form two rows without overflow; paragraph gap 24px. No row clipping or overlap.
+- Color/tokens: #FDC700 primary text, yellow outline, restrained amber fill; #D4D4D4 secondary text, #484848 border and almost-transparent dark fill. Removed silver gradients/top highlights. Reviewed against both combined comparison artifacts.
+- Asset quality: reused existing local Figma circular dot asset in the primary label; no new illustrative assets required. Original portrait and stickers stay intact.
+- Content: AI产品 / 增长玩法 / 全链路设计思维 / 数据导向 unchanged. No extra visible controls or labels.
+
+Checks: production build passed; whitespace diff check passed. Browser console warnings/errors empty. Verified initial hero scrollY=0, all four descriptors, responsive wrap and noninteractive descriptor semantics. Existing navigation/contact code remains unchanged by this scoped patch.
+
+Residual P3: mockup is a generated composition with slightly different surrounding metrics/portrait and tag density; surrounding source UI is intentionally preserved. No actionable P0/P1/P2 issues remain in scope.
+
+final result: passed
+
+
+## Final tag color/thickness and release — 2026-10-26
+- User finalized #FFC400 for primary text, border and existing Figma dot. Border thickness is 0.5px; actual browser computed border width was 0.5px at DPR 2. Fill uses rgba(255,196,0,.11).
+- Visual evidence: local qa/tags-half-pixel-border.png. Main selected mock and responsive comparison are documented above.
+- Canonical source synchronized byte-for-byte from the confirmed local preview. User explicitly requested publication.
+
+- Release checks: canonical production build passed; Sites routing/packaging tests passed 4/4; source diff check passed.

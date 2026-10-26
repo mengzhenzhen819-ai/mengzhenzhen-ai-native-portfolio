@@ -100,3 +100,14 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 ## Approved latest source synchronization — 2026-10-26
 - User approved updating the canonical local source folder and pushing these follow-ups to GitHub. This supersedes the latest local-review-only restrictions for the refreshed left closing copy, its upward/leftward alignment, the two enlarged photo crops, same-tab project links and hero-first homepage entry behavior.
 - Keep the original hero-only rollback checkpoint and all unrelated project galleries unchanged.
+
+## Selected capability tag direction — 2026-10-26
+- User selected the first displayed ImageGen mock, exec-05ff8201-d208-41ac-8b72-773542153d3c.png. Apply only its stats-tag treatment: AI产品 gets a brand-yellow dot/text, subtle amber tint and fine yellow outline; remaining three use charcoal fill and soft gray outlines/text. No silver gradient badges.
+- Preserve other homepage styling, assets, copy, metrics and behavior. Tags are expertise descriptors, not tab controls. Compact screens use a two-column wrap. This revision is local preview only until the user requests source synchronization/push.
+
+- Expertise primary tag accent is exactly #FFC400 for text, opaque 1px outline and circular dot. Its translucent fill uses the same RGB hue. Preserve the secondary tags and all other site colors.
+
+- Primary expertise tag yellow outline is now 0.5px (supersedes 1px); keep the #FFC400 text, outline and dot color unchanged.
+
+## Approved capability-tag publication — 2026-10-26
+- User approved synchronizing source and publishing the selected tag design. Primary AI产品 uses exact #FFC400 text/dot/outline, with a 0.5px yellow border and matching translucent fill; remaining tags stay subtle charcoal/gray. This supersedes the local-review-only limitation for this change.

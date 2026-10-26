@@ -195,25 +195,42 @@ img { user-select: none; }
   transform: rotate(3deg);
   transform-origin: center;
 }
-.stats-tags { position: absolute; left: 35px; top: 112.25px; display: flex; gap: 8px; }
+.stats-tags {
+  position: absolute;
+  left: 34.35px;
+  top: 110.25px;
+  display: flex;
+  gap: 10px;
+}
 .stats-tags span {
-  height: 28px;
-  padding: 2px 8px;
-  border-top: 1px solid #fff;
+  height: 32px;
+  padding: 3px 12px;
+  border: 1px solid #484848;
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #171717;
-  background: linear-gradient(-5.038deg, #e5e5e5 6.1733%, #e5e5e5 50%, #d4d4d4 93.827%);
+  color: #d4d4d4;
+  background: rgba(255,255,255,.015);
   font-size: 14px;
   line-height: 24px;
   font-weight: 500;
   white-space: nowrap;
 }
-.stats-tags span:nth-child(2),
-.stats-tags span:nth-child(4) { background-image: linear-gradient(-4.062deg, #e5e5e5 6.1733%, #e5e5e5 50%, #d4d4d4 93.827%); }
-.stats-tags span:nth-child(3) { background-image: linear-gradient(-2.568deg, #e5e5e5 6.1733%, #e5e5e5 50%, #d4d4d4 93.827%); }
+.stats-tags .stats-tag--primary {
+  gap: 8px;
+  color: #ffc400;
+  border-width: .5px;
+  border-color: #ffc400;
+  background: rgba(255,196,0,.11);
+}
+.stats-tags .stats-tag--primary::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: url("/contact-reference/figma-selection-dot.svg") center / contain no-repeat;
+}
 
 .location-wrap { position: relative; width: 484px; height: 160px; margin-top: 42.91px; margin-left: -20.32px; padding-left: 96px; }
 .location-shell {
@@ -811,7 +828,8 @@ footer {
 @media (max-width: 430px) {
   .profile-copy { width: 60%; }
   .portrait-wrap { width: 39%; height: 205px; }
-  .stats-tags span { padding-inline: 10px; font-size: 11px; }
+  .stats-tags { display: grid; grid-template-columns: max-content max-content; gap: 8px; }
+  .stats-tags span { height: 30px; padding-inline: 10px; font-size: 12px; }
   .stats-grid strong { font-size: 22px; }
   .stats-grid span { font-size: 15px; }
   .contact-button { font-size: 13px; }
