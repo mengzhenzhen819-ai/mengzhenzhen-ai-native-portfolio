@@ -58,8 +58,10 @@ export function useProjectPresentation(sectionRef, trackRef, activeSkill) {
       cards.forEach((card, index) => {
         const slot = card.parentElement;
         const size = sizes.get(card);
-        const side = index - (cards.length - 1) / 2;
-        const rank = index / Math.max(1, cards.length - 1);
+        // Reverse the opening stack only; each card still returns to its original slot.
+        const stackIndex = cards.length - 1 - index;
+        const side = stackIndex - (cards.length - 1) / 2;
+        const rank = stackIndex / Math.max(1, cards.length - 1);
         const originalX = slot.offsetLeft + slot.offsetWidth / 2;
         const originalY = slot.offsetTop + size.height / 2;
         // Normalize only the opening frame; final dimensions stay exactly original.
@@ -79,7 +81,7 @@ export function useProjectPresentation(sectionRef, trackRef, activeSkill) {
         card.style.setProperty('--presentation-rotation', `${mix(fanRotation, 0, towardGrid).toFixed(3)}deg`);
         card.style.setProperty('--presentation-scale', mix(fanScale, 1, towardGrid).toFixed(5));
         card.dataset.presenting = 'true';
-        card.style.zIndex = String(10+index);
+        card.style.zIndex = String(10+stackIndex);
       });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(paint); };
