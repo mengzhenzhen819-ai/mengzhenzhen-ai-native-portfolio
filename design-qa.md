@@ -309,3 +309,38 @@ final result: passed
 - Canonical source synchronized byte-for-byte from the confirmed local preview. User explicitly requested publication.
 
 - Release checks: canonical production build passed; Sites routing/packaging tests passed 4/4; source diff check passed.
+
+## Cartoon homepage portrait — 2026-10-27
+
+Superseded by the user's yellow-splash portrait selection documented below; the following cartoon checks are historical.
+
+- Source: Figma `sEfVYSUpkr3Ss0rU2jSnZA`, supplied frame `246:114`, cartoon raster node `248:498`.
+- Local asset: `public/figma-resume/portrait-cartoon.png`, original 1222×1287 PNG with alpha. The artwork already contains its tilted white border, so it is rendered once with no extra CSS frame or cropping.
+- Browser evidence: `/private/tmp/portfolio-cartoon-homepage-preview.png`; local page `http://127.0.0.1:4186/`, 1496×706 CSS px.
+- Browser confirmed the exact local image is loaded, natural dimensions are 1222×1287, slot is 253.680×267.172px, and position relative to `.profile-card` is left 243.664px / top -6.438px. Object fit is contain, wrapper border is 0px and transform is none. This matches the Figma artwork slot within normal subpixel rounding.
+- Visual review confirmed the entire head, cup and white frame remain visible. Existing yellow particles, expertise tags, copy and surrounding layout remain the established implementation; differences elsewhere in the supplied full Figma frame are outside this replacement's scope.
+- Production build and whitespace checks passed. Source is updated locally; no commit, GitHub push or deployment was requested for this preview.
+- Follow-up refresh: re-read Figma `248:498`; its source bytes still match SHA-256 `71fed4155d349ba8854b1d35bf4afb5af5c2bfd061bc26248490aa08445b9328`. Added a content-version query to the local image URL, rebuilt successfully, and restored the user-visible preview to `http://127.0.0.1:4180/`. Reloaded the existing in-app browser tab and verified the cartoon asset loaded at 253.680×267.172px with homepage scrollY=0. Current evidence: `/private/tmp/portfolio-cartoon-refreshed-4180.png`.
+
+## Yellow-splash homepage portrait — 2026-10-27
+
+- Re-read Figma node `248:492` in `sEfVYSUpkr3Ss0rU2jSnZA`, matching the user's newly supplied yellow-background screenshot.
+- Downloaded the original transparent PNG to `public/figma-resume/portrait-yellow-splash.png` (1194×1317). Full artwork, white frame, head and cup are preserved without additional framing or cropping.
+- Browser verified `/figma-resume/portrait-yellow-splash.png?v=ea2f12a2` is loaded, natural dimensions match, object fit is contain, and rendered size is 253.680×279.813px. Position and width remain the existing portrait slot; height follows the new image's natural ratio.
+- Refreshed the user's existing `http://127.0.0.1:4180/` tab. Visual evidence: `/private/tmp/portfolio-yellow-portrait-preview.png`.
+- Production build and diff checks passed. Local review only; no push or deployment.
+
+## Latest Figma yellow-portrait crop — 2026-10-27
+
+- Re-read the supplied full frame `246:114` and focused portrait `246:404`. Current photo child is `248:503`, replacing the previous full-artwork layout. The source PNG is byte-identical to the existing local asset.
+- Matched the actual clipped 190×226px frame, 6px white border, 8px corners, -3° outer rotation, and source layer's 229.746×253.413px size, +3° rotation and centered placement. The screenshot's new portrait size/crop is the visual target; previous full-image contain sizing is superseded.
+- Browser confirmed frame size 190×226px, top 15.167px, right -24.384px; image computed size 229.742×253.406px, left -25.466px and top -24.562px, with the exact local yellow portrait loaded. Subpixel size rounding is under .01px.
+- Refreshed the current 4180 tab and captured `/private/tmp/portfolio-yellow-framing-figma-latest.png`. Head, cup, image crop and frame reviewed against focused Figma screenshot. Surrounding styling stays the approved implementation.
+- Production build and diff checks passed. Local preview only.
+
+## Approved yellow-portrait source release — 2026-10-27
+- User requested source synchronization, GitHub push and publication of the final Figma yellow portrait. Final production build passed; existing routing/packaging tests passed 4/4. Visual and geometry evidence is recorded above.
+
+final result: passed
+
+final result: passed

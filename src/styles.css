@@ -167,8 +167,8 @@ img { user-select: none; }
 .profile-bio p { width: 262.051px; margin: 0; }
 .portrait-wrap {
   position: absolute;
-  top: 16px;
-  right: -24px;
+  top: 15.167px;
+  right: -24.384px;
   width: 190px;
   height: 226px;
   overflow: hidden;
@@ -185,10 +185,10 @@ img { user-select: none; }
 .portrait-wrap:hover { transform: rotate(-1.5deg) scale(1.045); }
 .portrait-wrap img {
   position: absolute;
-  left: -128.94px;
-  top: -49px;
-  width: 466.493px;
-  height: 310.995px;
+  left: -25.466px;
+  top: -24.562px;
+  width: 229.746px;
+  height: 253.413px;
   display: block;
   object-fit: cover;
   max-width: none;
@@ -782,7 +782,7 @@ footer {
   .profile-bio { width: 100%; font-size: 17px; line-height: 24.75px; }
   .profile-bio p { width: 100%; }
   .rule { width: 100%; }
-  .portrait-wrap { right: -3px; width: 40%; max-width: 190px; }
+  .portrait-wrap { top: 16px; right: -3px; width: 40%; max-width: 190px; }
   .location-wrap { width: 100%; margin-left: 0; padding-left: clamp(0px, 18vw, 96px); }
   .location-shell { width: 100%; }
   .location-frame { width: calc(100% - 16px); padding-inline: 20px; }

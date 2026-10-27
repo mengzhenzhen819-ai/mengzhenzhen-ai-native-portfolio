@@ -130,3 +130,21 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Category buttons retain their original neutral gray text/borders during hover, with no yellow accent or color change. Surrounding content can soften while previews are active.
 - Previews support pointer transfer into their links, same-tab project detail navigation, keyboard focus and Escape; dismiss on scroll/resize and use a below-button fallback if there is insufficient room above. Touch keeps the existing click behavior.
 - Never publish the demo-only preview-query scroll positioning. Fresh homepage visits still start at the hero.
+
+## Cartoon homepage portrait preview — 2026-10-27
+- Replace only the homepage portrait with the exact transparent raster from Figma `sEfVYSUpkr3Ss0rU2jSnZA`, node `248:498` within the supplied frame `246:114`. Store it locally as `public/figma-resume/portrait-cartoon.png` (1222×1287).
+- This asset already includes the tilted white frame. Render the full image without a second CSS border, rotation, or crop. Desktop slot is 253.687×267.18px, top -6.44px and right -53.347px relative to `.profile-card`; compact screens scale the complete asset proportionally in the existing portrait column.
+- Preserve the current capability tags, whole-page particles, project interactions and closing section. This replacement is for local review; do not publish until requested.
+
+## Yellow-splash homepage portrait preview — 2026-10-27
+- User clarified the requested image is the yellow paint-splash photographic portrait from Figma node `248:492`, not cartoon node `248:498`. This supersedes the cartoon selection above.
+- Use the original transparent `public/figma-resume/portrait-yellow-splash.png` (1194×1317), including its existing tilted white frame. Preserve the current portrait position and width, display the complete image proportionally, and do not add an extra border or crop.
+- Review at `http://127.0.0.1:4180/`. Keep this change local until publication is requested.
+
+## Latest Figma yellow portrait framing — 2026-10-27
+- Re-read the supplied homepage `246:114`; its current photo layer is `248:503` inside portrait frame `246:404`. This supersedes the full-artwork portrait sizing above.
+- Match the 190×226px white frame, 6px border, 8px corner radius and -3° rotation. Its untransformed desktop origin relative to `.profile-card` is left 278.384px / top 15.167px. The existing yellow source raster is unchanged.
+- Match the source photo's 229.746×253.413px size and +3° rotation inside the clipped frame, at left -25.466px / top -24.562px. These offsets reproduce the Figma layer's centered rotated bounding box (-31.94px, -30.4px, 242.694×265.09px). Preserve compact-layout portrait rules. Local review only.
+
+## Approved yellow-portrait publication — 2026-10-27
+- User approved updating local source, pushing to GitHub and publishing the latest yellow portrait with the `246:404` / `248:503` framing above. This supersedes the local-preview-only restriction for the final yellow portrait. Do not publish the earlier cartoon study.

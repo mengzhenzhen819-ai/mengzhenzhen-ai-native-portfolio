@@ -446,7 +446,7 @@ function ProfileCard() {
             </div>
           </div>
           <div className="portrait-wrap">
-            <img src={asset("5f44c.png")} alt="孟珍珍肖像" />
+            <img src={asset("portrait-yellow-splash.png?v=ea2f12a2")} alt="孟珍珍黄色泼墨背景肖像" width="1194" height="1317" />
           </div>
         </div>
       </div>
