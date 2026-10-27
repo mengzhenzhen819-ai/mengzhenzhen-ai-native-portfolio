@@ -1,5 +1,7 @@
 import { useProjectPresentation } from "./components/useProjectPresentation.js";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import "./project-hover-preview.css";
 import matrixDetailManifest from "./matrix-detail/manifest.json";
 import HeroAtmosphere from "./components/HeroAtmosphere.jsx";
 import ContactPhotoWaves from "./components/ContactPhotoWaves.jsx";
@@ -586,25 +588,133 @@ function ExperienceSection() {
   );
 }
 
-function SkillSection({ activeSkill, onSelectSkill }) {
+function SkillSection({ activeSkill, onSelectSkill, onPreviewChange }) {
+  const [preview, setPreview] = useState(null);
+  const [leaving, setLeaving] = useState(false);
+  const closeTimer = useRef(null);
+  const exitTimer = useRef(null);
+  const triggerRef = useRef(null);
+
+  const cancelClose = () => {
+    clearTimeout(closeTimer.current);
+    clearTimeout(exitTimer.current);
+    setLeaving(false);
+  };
+  const close = () => {
+    clearTimeout(closeTimer.current);
+    clearTimeout(exitTimer.current);
+    setLeaving(true);
+    onPreviewChange(false);
+    exitTimer.current = setTimeout(() => {
+      setPreview(null);
+      triggerRef.current = null;
+    }, 180);
+  };
+  const scheduleClose = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(close, 120);
+  };
+  const open = (event, skill) => {
+    if (event.pointerType === "touch") return;
+    cancelClose();
+    triggerRef.current = event.currentTarget;
+    const box = event.currentTarget.getBoundingClientRect();
+    const width = Math.min(skill.projectIds.length > 1 ? 260 : 210, innerWidth - 24);
+    const height = 174;
+    const above = box.top >= height + 26;
+    setPreview({
+      skill, width, above,
+      x: Math.max(12, Math.min(innerWidth - width - 12, box.left + box.width / 2 - width / 2)),
+      y: above ? box.top - height - 18 : Math.min(box.bottom + 18, innerHeight - height - 12),
+    });
+    onPreviewChange(true);
+  };
+
+  useEffect(() => {
+    const dismiss = () => {
+      clearTimeout(closeTimer.current);
+      clearTimeout(exitTimer.current);
+      setPreview(null);
+      setLeaving(false);
+      onPreviewChange(false);
+    };
+    const escape = (event) => {
+      if (event.key === "Escape") { dismiss(); triggerRef.current?.blur(); }
+    };
+    window.addEventListener("scroll", dismiss, { passive: true });
+    window.addEventListener("resize", dismiss);
+    window.addEventListener("keydown", escape);
+    return () => {
+      clearTimeout(closeTimer.current);
+      clearTimeout(exitTimer.current);
+      window.removeEventListener("scroll", dismiss);
+      window.removeEventListener("resize", dismiss);
+      window.removeEventListener("keydown", escape);
+    };
+  }, [onPreviewChange]);
+
   return (
-    <section className="skills-section" id="projects" data-reveal>
+    <section className={`skills-section${preview && !leaving ? " has-hover-preview" : ""}`} id="projects" data-reveal>
       <SectionTitle>项目经验</SectionTitle>
       <div className="skill-tags">
-        {skillTags.map(({ label, width }) => (
+        {skillTags.map((skill) => (
           <button
             type="button"
-            key={label}
-            aria-pressed={activeSkill === label}
-            onClick={() => onSelectSkill(label)}
-            style={{ "--tag-width": `${width}px` }}
+            key={skill.label}
+            className={preview?.skill.label === skill.label && !leaving ? "is-peeking" : ""}
+            aria-pressed={activeSkill === skill.label}
+            aria-expanded={preview?.skill.label === skill.label && !leaving}
+            aria-controls={preview?.skill.label === skill.label ? "skill-project-preview" : undefined}
+            onPointerEnter={(event) => open(event, skill)}
+            onPointerLeave={scheduleClose}
+            onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) open(event, skill); }}
+            onBlur={scheduleClose}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowUp" && preview?.skill.label === skill.label) {
+                event.preventDefault();
+                document.querySelector(".skill-preview-card")?.focus({ preventScroll: true });
+              }
+            }}
+            onClick={() => { close(); onSelectSkill(skill.label); }}
+            style={{ "--tag-width": `${skill.width}px` }}
           >
-            <span className="skill-tag-inner">
-              <span>{label}</span>
-            </span>
+            <span className="skill-tag-inner"><span>{skill.label}</span></span>
           </button>
         ))}
       </div>
+      {preview && createPortal(
+        <div
+          key={preview.skill.label}
+          id="skill-project-preview"
+          className={`skill-project-preview${leaving ? " is-leaving" : ""}${preview.skill.projectIds.length > 1 ? " is-pair" : ""}`}
+          data-placement={preview.above ? "above" : "below"}
+          style={{ left: preview.x, top: preview.y, width: preview.width }}
+          onPointerEnter={cancelClose}
+          onPointerLeave={scheduleClose}
+          onFocus={cancelClose}
+          onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) scheduleClose(); }}
+          role="region"
+          aria-label={`${preview.skill.label}项目预览`}
+        >
+          <div className="skill-preview-cards">
+            {preview.skill.projectIds.map((id, index) => {
+              const project = allProjects.find((item) => item.id === id);
+              return (
+                <a className="skill-preview-card" key={id} href={`/projects/${id}`} target="_self"
+                  style={{ "--preview-index": index }} aria-label={`查看${project.title}`}
+                  onClick={(event) => {
+                    if (isPlainLinkClick(event)) window.history.replaceState({
+                      ...window.history.state, portfolioProjectReturn: `#project-${id}`,
+                    }, "", window.location.href);
+                  }}>
+                  <div className="skill-preview-media"><ProjectMedia id={id} /></div>
+                  <div className="skill-preview-copy"><h3>{project.title}</h3><span>查看项目 ↗</span></div>
+                </a>
+              );
+            })}
+          </div>
+        </div>, document.body
+      )}
     </section>
   );
 }
@@ -719,14 +829,15 @@ function ProjectsSection({ activeSkill, trackRef }) {
 function ProjectExperience() {
   const trackRef = useRef(null);
   const [activeSkill, setActiveSkill] = useState(null);
+  const [isPreviewing, setIsPreviewing] = useState(false);
   const selectSkill = (label) => {
     setActiveSkill((current) => (current === label ? null : label));
   };
 
   return (
-    <div ref={trackRef} className="project-presentation-track">
+    <div ref={trackRef} className={`project-presentation-track${isPreviewing ? " is-previewing-skill" : ""}`}>
       <div className="project-presentation-panel">
-        <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} />
+        <SkillSection activeSkill={activeSkill} onSelectSkill={selectSkill} onPreviewChange={setIsPreviewing} />
         <ProjectsSection activeSkill={activeSkill} trackRef={trackRef} />
       </div>
     </div>

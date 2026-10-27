@@ -123,3 +123,10 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Production code excludes review auto-positioning, preview-query behavior and keyboard reset shortcuts. Reduced motion restores original static cards and removes the sticky scroll interval.
 
 - Approved opening-stack order update: reverse only the initial visual stack so the matrix AI-production project is the last/rightmost/largest/topmost card. Preserve the final original two-column order, card content, centerline and scroll geometry. User authorized source synchronization and online publication of this follow-up; the work-experience archive is still excluded.
+
+## Approved category hover preview publication — 2026-10-27
+- User approved publishing the six project-category hover previews. Keep existing buttons, click filtering, original project content, scroll-driven opening stack and final grid unchanged. Work experience remains original, excluding the career-archive experiment.
+- Hover shows the matching real project card(s) above the button; Growth shows sign-in and treasure together. Use compact 170px single cards and 160px paired cards. Single cards stay upright even when hovered; paired cards retain a slight offset and tilt.
+- Category buttons retain their original neutral gray text/borders during hover, with no yellow accent or color change. Surrounding content can soften while previews are active.
+- Previews support pointer transfer into their links, same-tab project detail navigation, keyboard focus and Escape; dismiss on scroll/resize and use a below-button fallback if there is insufficient room above. Touch keeps the existing click behavior.
+- Never publish the demo-only preview-query scroll positioning. Fresh homepage visits still start at the hero.

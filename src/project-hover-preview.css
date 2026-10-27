@@ -1,0 +1,72 @@
+/* Category hover previews preserve the original button and project-grid geometry. */
+.skills-section .section-title,
+.projects-grid--presentation {
+  transition: filter 220ms ease, opacity 220ms ease;
+}
+.skill-tags { user-select: none; }
+.home-page:has(.is-previewing-skill) .experience-shell { filter: blur(3px); opacity: .45; }
+.skill-tags button { transition: color .2s, border-color .2s, transform .2s, filter .22s, opacity .22s; }
+.has-hover-preview .section-title { filter: blur(2px); opacity: .45; }
+.has-hover-preview .skill-tags button:not(.is-peeking) { filter: blur(1.5px); opacity: .48; }
+.is-previewing-skill .projects-grid--presentation { filter: blur(3px); opacity: .42; }
+.skill-tags button.is-peeking, .skill-tags button.is-peeking:hover { color: #d4d4d4; border-top-color: #404040; transform: translateY(-3px); }
+.skill-tags button.is-peeking .skill-tag-inner { border-bottom-color: #404040; }
+.skill-tags button:focus-visible { outline: 1px solid #aaa; outline-offset: 4px; }
+
+.skill-project-preview {
+  position: fixed;
+  height: 174px;
+  z-index: 500;
+  pointer-events: none;
+  user-select: none;
+  perspective: 900px;
+  transform-origin: 50% 100%;
+  animation: skill-preview-in 540ms cubic-bezier(.18,.85,.22,1.18) both;
+}
+.skill-project-preview::after { content: ""; position: absolute; inset: auto 0 -24px; height: 35px; pointer-events: auto; }
+.skill-project-preview[data-placement="below"] { transform-origin: 50% 0; }
+.skill-project-preview[data-placement="below"]::after { top: -24px; bottom: auto; }
+.skill-preview-cards { position: relative; width: 100%; height: 100%; }
+.skill-preview-card {
+  position: absolute;
+  width: 170px;
+  bottom: 8px;
+  left: 50%;
+  padding: 4px;
+  border: 1px solid #525252;
+  border-radius: 11px;
+  background: #202020;
+  box-shadow: 0 20px 45px #0009, 0 2px 4px #0007;
+  color: #f5f5f3;
+  text-decoration: none;
+  pointer-events: auto;
+  transform: translateX(-50%);
+  transition: transform 280ms cubic-bezier(.2,.8,.2,1), border-color .2s;
+  animation: skill-card-settle 650ms cubic-bezier(.18,.85,.22,1.12) both;
+}
+.skill-preview-media { height: 96px; overflow: hidden; border-radius: 7px; background: #080808; }
+.skill-preview-media .scene { width: 100%; height: 100%; position: relative; overflow: hidden; }
+.skill-preview-media .scene img { display: block; width: 100%; height: 100%; object-fit: cover; inset: 0; transform: none; }
+.skill-preview-copy { padding: 8px 7px 6px; display: flex; flex-direction: column; gap: 3px; }
+.skill-preview-copy h3 { margin: 0; font-size: 11.5px; font-weight: 600; line-height: 1.4; }
+.skill-preview-copy span { color: #aaa; font-size: 10px; line-height: 1.5; }
+.is-pair .skill-preview-card { width: 160px; z-index: calc(1 + var(--preview-index)); transform: translateX(calc(-50% - 28px + var(--preview-index) * 56px)) translateY(calc(var(--preview-index) * -5px)) rotate(calc(-10deg + var(--preview-index) * 17deg)); animation-delay: calc(var(--preview-index) * 55ms); }
+.is-pair .skill-preview-media { height: 90px; }
+.skill-preview-card:hover, .skill-preview-card:focus-visible { z-index: 5; border-color: #ffc400; transform: translateX(-50%) translateY(-6px); }
+.is-pair .skill-preview-card:hover, .is-pair .skill-preview-card:focus-visible { transform: translateX(calc(-50% - 28px + var(--preview-index) * 56px)) translateY(-15px) rotate(calc(-6deg + var(--preview-index) * 9deg)); }
+.skill-project-preview.is-leaving { animation: skill-preview-out 180ms ease-in both; pointer-events: none; }
+.skill-project-preview.is-leaving * { pointer-events: none; }
+@keyframes skill-preview-in {
+  from { opacity: 0; transform: translateY(35px) scale(.64); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes skill-card-settle { from { translate: 0 25px; } to { translate: 0 0; } }
+@keyframes skill-preview-out { to { opacity: 0; transform: translateY(18px) scale(.88); } }
+@media (max-width: 720px) {
+  .skill-preview-card { width: min(170px, calc(100vw - 62px)); }
+  .is-pair .skill-preview-card { width: min(160px, calc(100vw - 110px)); transform: translateX(calc(-50% - 28px + var(--preview-index) * 56px)) rotate(calc(-8deg + var(--preview-index) * 14deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-project-preview, .skill-preview-card { animation-duration: 1ms; }
+  .skill-tags button, .skill-preview-card, .skills-section .section-title, .projects-grid--presentation { transition: none; }
+}
